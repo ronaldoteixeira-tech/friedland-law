@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friedland Law — Monthly Intelligence Report · March 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --navy-950: #060d18;
+  --navy-900: #0A1425;
+  --navy-800: #122035;
+  --navy-700: #1a2d4a;
+  --navy-600: #243d63;
+  --gold-600: #8a7440;
+  --gold-500: #a8904f;
+  --gold-400: #BEA95E;
+  --gold-300: #cfc07e;
+  --gold-200: #e4d8ae;
+  --white: #FFFFFF;
+  --gray-700: #374151;
+  --gray-500: #6B7280;
+  --gray-400: #9CA3AF;
+  --gray-200: #E5E7EB;
+  --success: #1FC16B;
+  --error: #E53E3E;
+  --orange: #FAA31A;
+  --grad-gold: linear-gradient(135deg, #cfc07e 0%, #BEA95E 45%, #8a7440 100%);
+  --shadow-gold: 0 8px 32px rgba(190,169,94,0.25);
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--navy-950);
+  color: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Noise overlay */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999;
+}
+
+/* ─── AMBIENT ORBS ─────────────────────────────── */
+.ambient { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.orb {
+  position: absolute; border-radius: 50%; filter: blur(100px);
+}
+.orb-1 {
+  width: 600px; height: 600px; top: -200px; right: -100px;
+  background: radial-gradient(circle, rgba(190,169,94,0.06) 0%, transparent 70%);
+  animation: drift 20s ease-in-out infinite;
+}
+.orb-2 {
+  width: 400px; height: 400px; bottom: 10%; left: -100px;
+  background: radial-gradient(circle, rgba(190,169,94,0.04) 0%, transparent 70%);
+  animation: drift 28s ease-in-out infinite reverse;
+}
+@keyframes drift {
+  0%,100% { transform: translate(0,0); }
+  50% { transform: translate(-30px, 40px); }
+}
+
+/* ─── LAYOUT ───────────────────────────────────── */
+.page {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+  position: relative; z-index: 1;
+}
+
+/* ─── COVER ────────────────────────────────────── */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 40px;
+  max-width: 1160px;
+  margin: 0 auto;
+  position: relative; z-index: 1;
+}
+
+.cover-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-bottom: 24px;
+}
+
+.cover-title {
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.cover-title em {
+  font-style: italic;
+  background: var(--grad-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cover-subtitle {
+  font-size: 16px;
+  color: var(--gray-400);
+  font-weight: 300;
+  margin-bottom: 56px;
+  max-width: 520px;
+}
+
+.cover-divider {
+  width: 80px; height: 1px;
+  background: var(--grad-gold);
+  margin-bottom: 40px;
+}
+
+.cover-meta {
+  display: flex; gap: 48px; flex-wrap: wrap;
+}
+
+.cover-meta-item {}
+.cover-meta-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-bottom: 4px;
+}
+.cover-meta-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gold-400);
+}
+
+.cover-tagline {
+  position: absolute;
+  bottom: 60px; right: 40px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 300;
+  color: rgba(190,169,94,0.35);
+  text-align: right;
+}
+
+.cover-line {
+  position: absolute;
+  top: 0; right: 200px;
+  width: 1px; height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(190,169,94,0.08) 30%, rgba(190,169,94,0.08) 70%, transparent);
+}
+
+/* ─── SECTION HEADER ───────────────────────────── */
+.section {
+  padding-top: 80px;
+}
+
+.section-number {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--gold-400);
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--gold-300);
+}
+
+.section-desc {
+  font-size: 14px;
+  color: var(--gray-500);
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.section-rule {
+  width: 100%; height: 1px;
+  background: linear-gradient(to right, rgba(190,169,94,0.2), transparent);
+  margin-bottom: 40px;
+}
+
+/* ─── KPI CARDS ────────────────────────────────── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.kpi-card {
+  background: var(--navy-800);
+  border: 1px solid rgba(190,169,94,0.1);
+  border-radius: 12px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.kpi-card:hover {
+  border-color: rgba(190,169,94,0.3);
+  transform: translateY(-2px);
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--grad-gold);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.kpi-card:hover::before { opacity: 1; }
+
+.kpi-card.alert { border-color: rgba(229,62,62,0.25); }
+.kpi-card.alert::before { background: linear-gradient(90deg, #E53E3E, #ff6b6b); opacity: 1; }
+
+.kpi-card.success { border-color: rgba(31,193,107,0.2); }
+.kpi-card.success::before { background: linear-gradient(90deg, #1FC16B, #34d399); opacity: 1; }
+
+.kpi-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-bottom: 12px;
+}
+
+.kpi-value {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.kpi-value.gold { color: var(--gold-400); }
+.kpi-value.red { color: var(--error); }
+.kpi-value.green { color: var(--success); }
+
+.kpi-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+.kpi-badge.up { background: rgba(31,193,107,0.12); color: var(--success); }
+.kpi-badge.down { background: rgba(229,62,62,0.12); color: var(--error); }
+.kpi-badge.warn { background: rgba(250,163,26,0.12); color: var(--orange); }
+
+.kpi-note {
+  font-size: 12px;
+  color: var(--gray-500);
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+/* ─── CARDS / PANELS ───────────────────────────── */
+.panel {
+  background: var(--navy-800);
+  border: 1px solid rgba(190,169,94,0.08);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 20px;
+}
+
+.panel-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gold-300);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.panel-title .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold-400);
+  flex-shrink: 0;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .two-col, .three-col { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ─── CHART CONTAINER ──────────────────────────── */
+.chart-wrap {
+  position: relative;
+  padding: 20px 0;
+}
+
+/* ─── TABLES ───────────────────────────────────── */
+.fl-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.fl-table th {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  text-align: left;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(190,169,94,0.1);
+}
+.fl-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--gray-200);
+  vertical-align: top;
+}
+.fl-table tr:last-child td { border-bottom: none; }
+.fl-table tr:hover td { background: rgba(190,169,94,0.03); }
+.fl-table td.bold { font-weight: 600; color: var(--white); }
+.fl-table td.gold { color: var(--gold-400); font-weight: 600; }
+.fl-table td.green { color: var(--success); }
+.fl-table td.red { color: var(--error); }
+.fl-table td.orange { color: var(--orange); }
+
+/* ─── HIGHLIGHT / CALLOUT ──────────────────────── */
+.callout {
+  border-left: 3px solid var(--gold-400);
+  background: rgba(190,169,94,0.05);
+  padding: 20px 24px;
+  border-radius: 0 8px 8px 0;
+  margin: 20px 0;
+}
+.callout.danger {
+  border-left-color: var(--error);
+  background: rgba(229,62,62,0.05);
+}
+.callout.success {
+  border-left-color: var(--success);
+  background: rgba(31,193,107,0.05);
+}
+.callout-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-bottom: 6px;
+}
+.callout.danger .callout-label { color: var(--error); }
+.callout.success .callout-label { color: var(--success); }
+.callout-text {
+  font-size: 14px;
+  color: var(--gray-200);
+  line-height: 1.6;
+}
+
+/* ─── PROGRESS BARS ────────────────────────────── */
+.progress-item {
+  margin-bottom: 18px;
+}
+.progress-label {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 6px;
+}
+.progress-name { font-size: 13px; color: var(--gray-400); }
+.progress-value { font-size: 13px; font-weight: 600; color: var(--white); }
+.progress-change { font-size: 11px; color: var(--success); }
+.progress-track {
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--grad-gold);
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── CHANNEL CARD ─────────────────────────────── */
+.channel-card {
+  background: var(--navy-700);
+  border: 1px solid rgba(190,169,94,0.08);
+  border-radius: 10px;
+  padding: 24px;
+}
+.channel-card-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-bottom: 4px;
+}
+.channel-card-subtitle {
+  font-size: 12px;
+  color: var(--gray-500);
+  margin-bottom: 20px;
+}
+.channel-stat {
+  margin-bottom: 14px;
+}
+.channel-stat-label {
+  font-size: 11px;
+  color: var(--gray-500);
+  margin-bottom: 2px;
+}
+.channel-stat-value {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--white);
+}
+.channel-stat-note {
+  font-size: 11px;
+  color: var(--gray-500);
+}
+
+/* ─── ACTION PLAN ITEMS ────────────────────────── */
+.action-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.action-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(190,169,94,0.07);
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+.action-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: rgba(190,169,94,0.1);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+.action-body {}
+.action-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.action-desc {
+  font-size: 13px;
+  color: var(--gray-400);
+  line-height: 1.5;
+}
+
+/* ─── ROADMAP ITEMS ────────────────────────────── */
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.roadmap-item {
+  background: var(--navy-700);
+  border: 1px solid rgba(190,169,94,0.08);
+  border-radius: 10px;
+  padding: 20px;
+}
+.roadmap-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--gold-500);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.roadmap-event {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.roadmap-tactic {
+  font-size: 12px;
+  color: var(--gray-400);
+  line-height: 1.5;
+}
+
+/* ─── TAG ──────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(190,169,94,0.2);
+  color: var(--gold-400);
+  background: rgba(190,169,94,0.06);
+}
+
+/* ─── FOOTER ───────────────────────────────────── */
+.report-footer {
+  margin-top: 80px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(190,169,94,0.1);
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 20px;
+}
+.footer-brand {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-style: italic;
+  color: var(--gold-400);
+}
+.footer-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--gray-500);
+  text-align: right;
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+}
+
+/* ─── PAGE NAV ─────────────────────────────────── */
+.page-nav {
+  position: fixed;
+  top: 50%; right: 24px;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 8px;
+  z-index: 100;
+}
+.nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(190,169,94,0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.nav-dot:hover, .nav-dot.active {
+  background: var(--gold-400);
+  transform: scale(1.5);
+}
+.nav-dot-label {
+  position: absolute;
+  right: 18px;
+  white-space: nowrap;
+  font-size: 11px;
+  color: var(--gold-400);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  transform: translateY(-50%);
+  top: 50%;
+  background: rgba(6,13,24,0.9);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.nav-dot:hover .nav-dot-label { opacity: 1; }
+.nav-dot-wrap {
+  position: relative;
+  display: flex; align-items: center; justify-content: flex-end;
+}
+
+/* ─── INTAKE VISUAL ─────────────────────────────── */
+.funnel-visual {
+  display: flex; flex-direction: column; gap: 8px; align-items: center;
+  padding: 20px 0;
+}
+.funnel-step {
+  border-radius: 6px;
+  padding: 14px 24px;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+.funnel-step:hover { transform: scaleX(1.02); }
+.funnel-num {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.funnel-label {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.funnel-arrow {
+  color: rgba(190,169,94,0.3);
+  font-size: 18px;
+}
+
+/* ─── ANIMATIONS ───────────────────────────────── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- Ambient -->
+<div class="ambient">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+</div>
+
+<!-- Side Nav -->
+<nav class="page-nav">
+  <div class="nav-dot-wrap"><div class="nav-dot active" data-section="cover"><span class="nav-dot-label">Cover</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="dashboard"><span class="nav-dot-label">Dashboard</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="organic"><span class="nav-dot-label">Organic</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="paid"><span class="nav-dot-label">Paid Media</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="channels"><span class="nav-dot-label">Channels</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="intake"><span class="nav-dot-label">Intake</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="action"><span class="nav-dot-label">Action Plan</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="roadmap"><span class="nav-dot-label">Roadmap</span></div></div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════ COVER -->
+<section id="cover">
+  <div class="cover">
+    <div class="cover-line"></div>
+    <div class="cover-eyebrow">Monthly Intelligence Report · March 2026</div>
+    <h1 class="cover-title">
+      Friedland Law<br>
+      <em>Strategic Performance</em><br>
+      Analysis
+    </h1>
+    <p class="cover-subtitle">
+      Consolidated paid media, organic growth, and intake quality assessment for Q1 strategic review and April optimization planning.
+    </p>
+    <div class="cover-divider"></div>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Period</div>
+        <div class="cover-meta-value">March 2026</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Strategic Focus</div>
+        <div class="cover-meta-value">Jacksonville Centralization</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Total Investment</div>
+        <div class="cover-meta-value">$11,987.77</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Next Review</div>
+        <div class="cover-meta-value">May 5, 2026</div>
+      </div>
+    </div>
+    <div class="cover-tagline">"Your Fight Our Battle"</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ DASHBOARD -->
+<section id="dashboard" class="page">
+  <div class="section fade-up">
+    <div class="section-number">01 · Dashboard</div>
+    <h2 class="section-title">Investment & <em>Return Overview</em></h2>
+    <p class="section-desc">Key performance metrics for March 2026 — measured against Q1 benchmarks and Florida urban market standards.</p>
+    <div class="section-rule"></div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Paid Investment</div>
+        <div class="kpi-value gold">$11,987</div>
+        <div style="margin-top:8px;">
+          <span class="kpi-badge up">↑ 79.9% of $15k budget</span>
+        </div>
+        <div class="kpi-note">Accelerating into Q2 · Budget utilization on track</div>
+      </div>
+
+      <div class="kpi-card success">
+        <div class="kpi-label">Cost per Visit (Blended)</div>
+        <div class="kpi-value green">$0.57</div>
+        <div style="margin-top:8px;">
+          <span class="kpi-badge up">✓ Highly efficient</span>
+        </div>
+        <div class="kpi-note">Best-in-class for the legal sector in Florida</div>
+      </div>
+
+      <div class="kpi-card success">
+        <div class="kpi-label">Google Search CPL (Generic)</div>
+        <div class="kpi-value green">$472.73</div>
+        <div style="margin-top:8px;">
+          <span class="kpi-badge up">↓ 52% vs. benchmark</span>
+        </div>
+        <div class="kpi-note">Florida urban benchmark: $1,000+ per lead</div>
+      </div>
+
+      <div class="kpi-card alert">
+        <div class="kpi-label">Viable Case Conversion</div>
+        <div class="kpi-value red">0%</div>
+        <div style="margin-top:8px;">
+          <span class="kpi-badge down">⚠ Critical — Action Required</span>
+        </div>
+        <div class="kpi-note">21 calls & 7 PI cases opened — 0 viable cases identified</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Spanish Ads CTR</div>
+        <div class="kpi-value gold">3.73%</div>
+        <div style="margin-top:8px;">
+          <span class="kpi-badge up">↑ Top performing segment</span>
+        </div>
+        <div class="kpi-note">Bilingualism as competitive advantage vs. generic competitors</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Branding CPA (Google)</div>
+        <div class="kpi-value gold">$67.69</div>
+        <div style="margin-top:8px;">
+          <span class="kpi-badge up">12 qualified conversions</span>
+        </div>
+        <div class="kpi-note">Brand search delivering highest quality leads this month</div>
+      </div>
+    </div>
+
+    <!-- Summary Table -->
+    <div class="panel fade-up">
+      <div class="panel-title"><span class="dot"></span>Full Performance Summary</div>
+      <table class="fl-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>March 2026 Result</th>
+            <th>Status vs. Q1</th>
+            <th>Context</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bold">Total Paid Investment</td>
+            <td class="gold">$11,987.77</td>
+            <td class="green">📈 Accelerating</td>
+            <td>79.9% of $15k monthly budget</td>
+          </tr>
+          <tr>
+            <td class="bold">Blended Cost per Visit</td>
+            <td class="gold">$0.57</td>
+            <td class="green">✅ Highly Efficient</td>
+            <td>Exceptional for the legal vertical</td>
+          </tr>
+          <tr>
+            <td class="bold">Google Search CPL (Generic)</td>
+            <td class="gold">$472.73</td>
+            <td class="green">✅ 52% below benchmark</td>
+            <td>FL urban benchmark is $1,000+</td>
+          </tr>
+          <tr>
+            <td class="bold">Viable Case Conversion</td>
+            <td class="red">0%</td>
+            <td class="red">⚠️ Critical</td>
+            <td>Intake quality filter insufficient</td>
+          </tr>
+          <tr>
+            <td class="bold">Jacksonville Campaign Delivery</td>
+            <td class="orange">$9.42</td>
+            <td class="orange">⚠️ Underdelivering</td>
+            <td>Bids below competitive auction floor</td>
+          </tr>
+          <tr>
+            <td class="bold">Instagram Followers</td>
+            <td class="gold">6,687</td>
+            <td class="green">+658 this month</td>
+            <td>3rd best month in account history</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ ORGANIC -->
+<section id="organic" class="page">
+  <div class="section fade-up">
+    <div class="section-number">02 · Organic</div>
+    <h2 class="section-title">Road to <em>10k</em> — Instagram Performance</h2>
+    <p class="section-desc">Instagram is not merely a social channel — it's a trust asset. March delivered the 3rd strongest growth month in account history.</p>
+    <div class="section-rule"></div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Current Followers</div>
+        <div class="kpi-value gold">6,687</div>
+        <div style="margin-top:8px;"><span class="kpi-badge up">+658 in March</span></div>
+      </div>
+      <div class="kpi-card success">
+        <div class="kpi-label">Target · May 2026</div>
+        <div class="kpi-value green">7,000</div>
+        <div style="margin-top:8px;"><span class="kpi-badge up">313 to go</span></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Target · Q3 End</div>
+        <div class="kpi-value gold">10,000</div>
+        <div style="margin-top:8px;"><span class="kpi-badge warn">3,313 to go</span></div>
+      </div>
+    </div>
+
+    <div class="two-col fade-up">
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span>Visibility Growth · March</div>
+        <div class="progress-item">
+          <div class="progress-label">
+            <span class="progress-name">Reach</span>
+            <span class="progress-value">232.2K <span class="progress-change">+149.6%</span></span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">
+            <span class="progress-name">Video Views</span>
+            <span class="progress-value">341.7K <span class="progress-change">+102.7%</span></span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" style="width:85%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">
+            <span class="progress-name">Profile Visits</span>
+            <span class="progress-value">11K <span class="progress-change">+96.8%</span></span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" style="width:65%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">
+            <span class="progress-name">New Followers</span>
+            <span class="progress-value">+658 <span class="progress-change">3rd best MoM</span></span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" style="width:50%"></div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span>Follower Growth Trajectory</div>
+        <div class="chart-wrap">
+          <canvas id="followerChart" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout fade-up">
+      <div class="callout-label">Strategic Insight</div>
+      <div class="callout-text">Reach grew +149.6% while follower growth was +10.9% MoM — a healthy ratio indicating strong top-of-funnel content performance. Virality is working; the conversion layer (follow CTA, story links) should be optimized to capture this attention as recurring audience.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ PAID MEDIA -->
+<section id="paid" class="page">
+  <div class="section fade-up">
+    <div class="section-number">03 · Paid Media</div>
+    <h2 class="section-title">Sniper Strategy — <em>Paid Performance</em></h2>
+    <p class="section-desc">March adopted a precision-over-scale approach, migrating 60% of Google budget toward Jacksonville while maintaining brand dominance.</p>
+    <div class="section-rule"></div>
+
+    <div class="two-col fade-up">
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span>Budget Distribution · March</div>
+        <div class="chart-wrap">
+          <canvas id="budgetChart" height="240"></canvas>
+        </div>
+        <div style="display:flex; gap:16px; margin-top:16px; flex-wrap:wrap;">
+          <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--gray-400);">
+            <div style="width:10px;height:10px;border-radius:2px;background:#BEA95E;flex-shrink:0;"></div>
+            Google Ads — $7,380.42
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--gray-400);">
+            <div style="width:10px;height:10px;border-radius:2px;background:#243d63;flex-shrink:0;"></div>
+            Meta Ads — $4,607.35
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span>Q1 Budget Allocation Shift</div>
+        <div class="chart-wrap">
+          <canvas id="q1Chart" height="240"></canvas>
+        </div>
+        <div style="font-size:12px; color:var(--gray-500); margin-top:12px;">January–February: Awareness. March: Jacksonville centralization.</div>
+      </div>
+    </div>
+
+    <div class="panel fade-up">
+      <div class="panel-title"><span class="dot"></span>Jacksonville — Critical Opportunity</div>
+      <div class="two-col">
+        <div>
+          <div style="font-size:13px; color:var(--gray-400); margin-bottom:16px;">
+            The Jacksonville-specific campaign received only <span style="color:var(--orange); font-weight:600;">$9.42 in delivery</span> out of the allocated budget. This is not a strategy failure — it's a bid calibration issue.
+          </div>
+          <div class="callout danger">
+            <div class="callout-label">Root Cause</div>
+            <div class="callout-text">Current bids are below the competitive auction floor in Jacksonville, where Farah & Farah and other regional incumbents command premium CPCs. The campaign exists but does not compete.</div>
+          </div>
+        </div>
+        <div>
+          <div style="margin-bottom:14px;">
+            <div style="font-family:var(--font-mono); font-size:10px; color:var(--gray-500); margin-bottom:4px; letter-spacing:0.1em; text-transform:uppercase;">Jacksonville Campaign</div>
+            <div style="font-family:var(--font-serif); font-size:40px; font-weight:600; color:var(--orange);">$9.42</div>
+            <div style="font-size:12px; color:var(--gray-500);">delivered from allocated budget</div>
+          </div>
+          <div style="margin-bottom:14px;">
+            <div style="font-family:var(--font-mono); font-size:10px; color:var(--gray-500); margin-bottom:4px; letter-spacing:0.1em; text-transform:uppercase;">Remaining Budget Available</div>
+            <div style="font-family:var(--font-serif); font-size:32px; font-weight:600; color:var(--gold-400);">~$3,000</div>
+            <div style="font-size:12px; color:var(--gray-500);">from March — to reinvest in April</div>
+          </div>
+          <div style="padding:12px 16px; background:rgba(31,193,107,0.07); border-radius:8px; border:1px solid rgba(31,193,107,0.15);">
+            <div style="font-size:12px; color:var(--success);">✓ April Action: Raise average bids on long-tail Jacksonville terms using this $3k carryover</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ CHANNELS -->
+<section id="channels" class="page">
+  <div class="section fade-up">
+    <div class="section-number">04 · Channel Deep Dive</div>
+    <h2 class="section-title">Meta Ads & <em>Google Ads</em></h2>
+    <p class="section-desc">Individual channel performance analysis with unit economics and strategic diagnosis.</p>
+    <div class="section-rule"></div>
+
+    <div class="two-col fade-up">
+      <!-- META ADS -->
+      <div class="panel">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px;">
+          <div>
+            <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em; color:var(--gold-400); text-transform:uppercase; margin-bottom:4px;">Meta Ads</div>
+            <div style="font-family:var(--font-serif); font-size:22px; font-weight:600; color:var(--white);">Audience Channel</div>
+          </div>
+          <span class="tag">$4,607.35</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+          <div class="channel-stat">
+            <div class="channel-stat-label">WA Conversations</div>
+            <div class="channel-stat-value">22</div>
+            <div class="channel-stat-note">Initiated via WhatsApp</div>
+          </div>
+          <div class="channel-stat">
+            <div class="channel-stat-label">CPV — "At Friedland Law"</div>
+            <div class="channel-stat-value" style="color:var(--success);">$0.33</div>
+            <div class="channel-stat-note">Excellent for the channel</div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="metaChart" height="160"></canvas>
+        </div>
+
+        <div class="callout danger" style="margin-top:20px;">
+          <div class="callout-label">Diagnosis</div>
+          <div class="callout-text">WhatsApp as the primary CTA creates a zero-friction entry point that attracts unqualified leads. Volume is high; quality is critically low. April transition to gated native forms is non-negotiable.</div>
+        </div>
+      </div>
+
+      <!-- GOOGLE ADS -->
+      <div class="panel">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px;">
+          <div>
+            <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em; color:var(--gold-400); text-transform:uppercase; margin-bottom:4px;">Google Ads</div>
+            <div style="font-family:var(--font-serif); font-size:22px; font-weight:600; color:var(--white);">Intent Channel</div>
+          </div>
+          <span class="tag">$7,380.42</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+          <div class="channel-stat">
+            <div class="channel-stat-label">Branding Conversions</div>
+            <div class="channel-stat-value" style="color:var(--success);">12</div>
+            <div class="channel-stat-note">Qualified brand-intent leads</div>
+          </div>
+          <div class="channel-stat">
+            <div class="channel-stat-label">Branding CPA</div>
+            <div class="channel-stat-value" style="color:var(--gold-400);">$67.69</div>
+            <div class="channel-stat-note">Best CPA of all campaigns</div>
+          </div>
+          <div class="channel-stat">
+            <div class="channel-stat-label">Generic CPL</div>
+            <div class="channel-stat-value">$472.73</div>
+            <div class="channel-stat-note">52% below FL benchmark</div>
+          </div>
+          <div class="channel-stat">
+            <div class="channel-stat-label">Jacksonville Delivery</div>
+            <div class="channel-stat-value" style="color:var(--orange);">$9.42</div>
+            <div class="channel-stat-note">Severely underdelivering</div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="googleChart" height="160"></canvas>
+        </div>
+
+        <div class="callout success" style="margin-top:20px;">
+          <div class="callout-label">Strategic Strength</div>
+          <div class="callout-text">Brand search is outperforming all other segments. CPA of $67.69 is 7× better than generic terms — reinforcing that brand awareness investment (organic + creative) directly reduces acquisition cost.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Competitive Note -->
+    <div class="panel fade-up" style="background:var(--navy-700);">
+      <div class="panel-title"><span class="dot"></span>Bilingual Advantage — The Differentiation Multiplier</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:24px;">
+        <div style="text-align:center; padding:20px;">
+          <div style="font-family:var(--font-serif); font-size:52px; font-weight:600; color:var(--gold-400);">3.73%</div>
+          <div style="font-size:13px; color:var(--gray-400); margin-top:4px;">Spanish Ad CTR</div>
+        </div>
+        <div style="padding:20px; display:flex; flex-direction:column; justify-content:center;">
+          <div style="font-size:14px; color:var(--gray-200); line-height:1.7;">
+            Spanish-language campaigns outperform English generics because large competitors (Morgan & Morgan, Farah & Farah) communicate in English. The cultural resonance of Friedland's bilingual messaging is a structural moat — not replicable by mass-market firms without brand identity realignment.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ INTAKE -->
+<section id="intake" class="page">
+  <div class="section fade-up">
+    <div class="section-number">05 · Intake Quality</div>
+    <h2 class="section-title">The <em>Critical Point</em> — Quality vs. Volume</h2>
+    <p class="section-desc">This is the most operationally significant data set of March. Marketing generated volume — but intake friction is insufficient to filter viable cases.</p>
+    <div class="section-rule"></div>
+
+    <div class="two-col fade-up">
+      <div>
+        <!-- Funnel visual -->
+        <div class="panel">
+          <div class="panel-title"><span class="dot"></span>March Intake Funnel</div>
+          <div class="funnel-visual">
+            <div class="funnel-step" style="width:100%; background:rgba(190,169,94,0.12); border:1px solid rgba(190,169,94,0.2);">
+              <div class="funnel-num" style="color:var(--gold-400);">21</div>
+              <div class="funnel-label" style="color:var(--gold-400);">Inbound Calls</div>
+            </div>
+            <div class="funnel-arrow">▼</div>
+            <div class="funnel-step" style="width:85%; background:rgba(250,163,26,0.1); border:1px solid rgba(250,163,26,0.2);">
+              <div class="funnel-num" style="color:var(--orange);">7</div>
+              <div class="funnel-label" style="color:var(--orange);">PI Cases Opened</div>
+            </div>
+            <div class="funnel-arrow">▼</div>
+            <div class="funnel-step" style="width:65%; background:rgba(229,62,62,0.12); border:1px solid rgba(229,62,62,0.25);">
+              <div class="funnel-num" style="color:var(--error);">0</div>
+              <div class="funnel-label" style="color:var(--error);">Viable Cases</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel">
+          <div class="panel-title"><span class="dot"></span>Root Cause Analysis</div>
+          <table class="fl-table">
+            <thead>
+              <tr><th>Layer</th><th>Issue</th><th>Severity</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="bold">Lead Source</td>
+                <td>WhatsApp — zero qualification friction</td>
+                <td class="red">Critical</td>
+              </tr>
+              <tr>
+                <td class="bold">Case Profile</td>
+                <td>Lost cause or no compensable injury</td>
+                <td class="red">Critical</td>
+              </tr>
+              <tr>
+                <td class="bold">Intake Filter</td>
+                <td>No pre-qualification form or script layer</td>
+                <td class="orange">High</td>
+              </tr>
+              <tr>
+                <td class="bold">Audience Targeting</td>
+                <td>Meta campaigns lack case-eligibility signals</td>
+                <td class="orange">High</td>
+              </tr>
+              <tr>
+                <td class="bold">CTA Design</td>
+                <td>Call-to-action does not filter by accident type</td>
+                <td class="orange">Moderate</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout danger" style="margin-top:20px;">
+          <div class="callout-label">Strategic Conclusion</div>
+          <div class="callout-text">The marketing funnel is functioning correctly at the reach and click level. The failure point is post-click qualification. Every unqualified lead that reaches the Intake team represents wasted attorney time — the highest-cost resource in the operation. April's priority is to move the quality gate upstream.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ ACTION PLAN -->
+<section id="action" class="page">
+  <div class="section fade-up">
+    <div class="section-number">06 · Action Plan</div>
+    <h2 class="section-title">April 2026 — <em>Optimization</em> Sprint</h2>
+    <p class="section-desc">Three parallel workstreams: media quality, Jacksonville acceleration, and digital asset consolidation.</p>
+    <div class="section-rule"></div>
+
+    <div class="two-col fade-up">
+      <div>
+        <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-400); margin-bottom:16px;">Media & Lead Quality</div>
+        <ul class="action-list">
+          <li class="action-item">
+            <div class="action-icon">🚫</div>
+            <div class="action-body">
+              <div class="action-title">Shut Down WhatsApp Lead Campaigns</div>
+              <div class="action-desc">Immediate deactivation of Meta campaigns driving WhatsApp as primary CTA. Zero-friction entry points are generating unqualified volume that wastes Intake capacity.</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <div class="action-icon">📋</div>
+            <div class="action-body">
+              <div class="action-title">Launch Gated Native Lead Forms (Meta)</div>
+              <div class="action-desc">Deploy forms with hard qualification fields: accident date, injury presence, liability clarity. Only leads passing minimum criteria proceed to contact.</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <div class="action-icon">🎯</div>
+            <div class="action-body">
+              <div class="action-title">Accelerate Jacksonville Bids</div>
+              <div class="action-desc">Raise average CPCs on long-tail Jacksonville terms using ~$3k in Q1 carryover budget. Target competitive positioning against Farah & Farah in the region.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-400); margin-bottom:16px;">Digital Assets</div>
+        <ul class="action-list">
+          <li class="action-item">
+            <div class="action-icon">📍</div>
+            <div class="action-body">
+              <div class="action-title">Google Business Profile — Content Takeover</div>
+              <div class="action-desc">Agency assumes all GBP posting. Evaluating Sprout Social for simultaneous publishing across GBP and social channels (Meta Business Suite lacks GBP support).</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <div class="action-icon">🌐</div>
+            <div class="action-body">
+              <div class="action-title">Website Structural Completion</div>
+              <div class="action-desc">Blog infrastructure, animations, and resolution of 81 flagged technical SEO errors. Scope: addendum contract at $3,000 one-time payment.</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <div class="action-icon">📊</div>
+            <div class="action-body">
+              <div class="action-title">Intake Script Revision</div>
+              <div class="action-desc">Collaborate with Intake team to redesign call script around case-viability checkpoints. Align marketing qualification questions with attorney intake criteria.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ ROADMAP -->
+<section id="roadmap" class="page">
+  <div class="section fade-up">
+    <div class="section-number">07 · Roadmap</div>
+    <h2 class="section-title">Content Calendar — <em>May 2026</em></h2>
+    <p class="section-desc">Seasonal and cultural content strategy leveraging high-traffic dates and bilingual community anchors.</p>
+    <div class="section-rule"></div>
+
+    <div class="roadmap-grid fade-up">
+      <div class="roadmap-item">
+        <div class="roadmap-date">May 5</div>
+        <div class="roadmap-event">Cinco de Mayo</div>
+        <div class="roadmap-tactic">Reinforce bilingual identity. Celebrate the Latin American community Friedland serves. Cultural authenticity, not tokenism.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-date">May — 2nd Sun</div>
+        <div class="roadmap-event">Mother's Day</div>
+        <div class="roadmap-tactic">Spotlight Mirelly and Juanita. Family firm narrative strengthens trust and differentiation from corporate PI firms.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-date">May 26</div>
+        <div class="roadmap-event">Memorial Day</div>
+        <div class="roadmap-tactic">Road safety content. High-traffic period = higher accident risk. Educational posts + targeted ads for weekend road events.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-date">May 22–23</div>
+        <div class="roadmap-event">Shavuot</div>
+        <div class="roadmap-tactic">Institutional & cultural content. Community connection and brand values alignment.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-date">May — Ongoing</div>
+        <div class="roadmap-event">World Cup Strategy</div>
+        <div class="roadmap-tactic">Sports-themed hooks to connect with the Latin community. Playful brand awareness leveraging soccer as a shared cultural touchpoint.</div>
+      </div>
+      <div class="roadmap-item" style="border-color:rgba(190,169,94,0.25); background:rgba(190,169,94,0.04);">
+        <div class="roadmap-date">Milestone</div>
+        <div class="roadmap-event" style="color:var(--gold-400);">7,000 Followers</div>
+        <div class="roadmap-tactic">Target end-of-May. +313 followers from current 6,687. Growth acceleration via Reels and story engagement CTAs.</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="report-footer fade-up">
+      <div>
+        <div class="footer-brand">Friedland Law</div>
+        <div style="font-size:13px; color:var(--gray-500); margin-top:4px; font-style:italic;">Your Fight Our Battle</div>
+      </div>
+      <div class="footer-meta">
+        Monthly Intelligence Report · March 2026<br>
+        Produced by Lisboa & CO / V4 Company<br>
+        Next Review: May 5, 2026<br>
+        Confidential — Internal Use Only
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// ─── CHART DEFAULTS ──────────────────────────────────────────
+Chart.defaults.color = '#6B7280';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.05)';
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.font.size = 12;
+
+const goldGrad = (ctx) => {
+  const g = ctx.chart.ctx.createLinearGradient(0, 0, 0, ctx.chart.height);
+  g.addColorStop(0, 'rgba(190,169,94,0.7)');
+  g.addColorStop(1, 'rgba(190,169,94,0.05)');
+  return g;
+};
+
+// ─── FOLLOWER CHART ──────────────────────────────────────────
+new Chart(document.getElementById('followerChart'), {
+  type: 'line',
+  data: {
+    labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'May (T)', 'Q3 (T)'],
+    datasets: [{
+      label: 'Followers',
+      data: [5600, 5800, 6000, 6150, 6029, 6687, 7000, 10000],
+      borderColor: '#BEA95E',
+      borderWidth: 2,
+      pointBackgroundColor: '#BEA95E',
+      pointRadius: [3,3,3,3,3,5,4,4],
+      pointBorderColor: '#060d18',
+      pointBorderWidth: 2,
+      fill: true,
+      backgroundColor: function(ctx) {
+        const g = ctx.chart.ctx.createLinearGradient(0, 0, 0, 200);
+        g.addColorStop(0, 'rgba(190,169,94,0.2)');
+        g.addColorStop(1, 'rgba(190,169,94,0)');
+        return g;
+      },
+      tension: 0.4
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#122035',
+        titleColor: '#BEA95E',
+        bodyColor: '#E5E7EB',
+        borderColor: 'rgba(190,169,94,0.2)',
+        borderWidth: 1
+      }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#6B7280' } },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.03)' },
+        ticks: { color: '#6B7280', callback: v => v >= 1000 ? (v/1000)+'k' : v }
+      }
+    }
+  }
+});
+
+// ─── BUDGET DONUT ────────────────────────────────────────────
+new Chart(document.getElementById('budgetChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Google Ads', 'Meta Ads'],
+    datasets: [{
+      data: [7380.42, 4607.35],
+      backgroundColor: ['#BEA95E', '#1a2d4a'],
+      borderColor: ['#BEA95E', '#243d63'],
+      borderWidth: 2,
+      hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '70%',
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#122035',
+        titleColor: '#BEA95E',
+        bodyColor: '#E5E7EB',
+        borderColor: 'rgba(190,169,94,0.2)',
+        borderWidth: 1,
+        callbacks: {
+          label: ctx => ' $' + ctx.raw.toLocaleString('en-US', {minimumFractionDigits:2})
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'centerText',
+    beforeDraw(chart) {
+      const { ctx, width, height } = chart;
+      ctx.save();
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#BEA95E';
+      ctx.font = "600 22px 'Cormorant Garamond', serif";
+      ctx.fillText('$11,987', width/2, height/2 - 10);
+      ctx.fillStyle = '#6B7280';
+      ctx.font = "11px 'Inter', sans-serif";
+      ctx.fillText('Total Invested', width/2, height/2 + 14);
+      ctx.restore();
+    }
+  }]
+});
+
+// ─── Q1 SHIFT ────────────────────────────────────────────────
+new Chart(document.getElementById('q1Chart'), {
+  type: 'bar',
+  data: {
+    labels: ['January', 'February', 'March'],
+    datasets: [
+      {
+        label: 'General Awareness',
+        data: [85, 80, 20],
+        backgroundColor: '#1a2d4a',
+        borderRadius: 4
+      },
+      {
+        label: 'Jacksonville Focus',
+        data: [15, 20, 60],
+        backgroundColor: '#BEA95E',
+        borderRadius: 4
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      x: { stacked: true, grid: { display: false }, ticks: { color: '#6B7280' } },
+      y: {
+        stacked: true,
+        grid: { color: 'rgba(255,255,255,0.03)' },
+        ticks: { color: '#6B7280', callback: v => v+'%' },
+        max: 100
+      }
+    },
+    plugins: {
+      legend: {
+        display: true,
+        labels: { color: '#9CA3AF', boxWidth: 10, boxHeight: 10 }
+      },
+      tooltip: {
+        backgroundColor: '#122035',
+        titleColor: '#BEA95E',
+        bodyColor: '#E5E7EB',
+        borderColor: 'rgba(190,169,94,0.2)',
+        borderWidth: 1,
+        callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.raw + '%' }
+      }
+    }
+  }
+});
+
+// ─── META CHART ──────────────────────────────────────────────
+new Chart(document.getElementById('metaChart'), {
+  type: 'bar',
+  data: {
+    labels: ['"At Friedland Law" CPV', 'WA Conversations (unit)', 'Total Investment ($k)'],
+    datasets: [{
+      data: [0.33, 22, 4.6],
+      backgroundColor: ['rgba(31,193,107,0.3)', 'rgba(190,169,94,0.3)', 'rgba(36,61,99,0.6)'],
+      borderColor: ['#1FC16B', '#BEA95E', '#243d63'],
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false }, tooltip: { backgroundColor: '#122035', titleColor: '#BEA95E', bodyColor: '#E5E7EB', borderColor: 'rgba(190,169,94,0.2)', borderWidth: 1 } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#6B7280', font: { size: 10 } } },
+      y: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#6B7280' } }
+    }
+  }
+});
+
+// ─── GOOGLE CHART ────────────────────────────────────────────
+new Chart(document.getElementById('googleChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Brand CPA ($)', 'Generic CPL ($)', 'JX Delivery ($)', 'Brand Conv.'],
+    datasets: [{
+      data: [67.69, 472.73, 9.42, 12],
+      backgroundColor: ['rgba(190,169,94,0.4)', 'rgba(190,169,94,0.2)', 'rgba(229,62,62,0.3)', 'rgba(31,193,107,0.3)'],
+      borderColor: ['#BEA95E', '#a8904f', '#E53E3E', '#1FC16B'],
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false }, tooltip: { backgroundColor: '#122035', titleColor: '#BEA95E', bodyColor: '#E5E7EB', borderColor: 'rgba(190,169,94,0.2)', borderWidth: 1 } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#6B7280', font: { size: 10 } } },
+      y: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#6B7280' } }
+    }
+  }
+});
+
+// ─── INTERSECTION OBSERVER (fade-up) ─────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ─── NAV DOTS ────────────────────────────────────────────────
+const sections = document.querySelectorAll('section[id]');
+const dots = document.querySelectorAll('.nav-dot[data-section]');
+
+const secObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      dots.forEach(d => d.classList.remove('active'));
+      const active = document.querySelector(`.nav-dot[data-section="${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+
+sections.forEach(s => secObserver.observe(s));
+
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const id = dot.dataset.section;
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
