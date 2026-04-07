@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --navy-950: #060d18;
   --navy-900: #0A1425;
   --navy-800: #122035;
@@ -315,8 +315,30 @@ body::after {
 }
 
 @media (max-width: 768px) {
+  /* Grids */
   .two-col, .three-col { grid-template-columns: 1fr; }
-  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  
+  /* Layout Paddings */
+  .page { padding: 0 20px 60px; }
+  .cover { padding: 40px 20px; align-items: flex-start; }
+  .cover-title { font-size: 40px; line-height: 1.1; }
+  .cover-subtitle { margin-bottom: 40px; }
+  .cover-tagline { position: relative; bottom: auto; right: auto; margin-top: 40px; text-align: left; }
+  .cover-line { display: none; }
+  .cover-meta { flex-direction: column; gap: 24px; align-items: flex-start; }
+
+  /* Table Scroll */
+  .panel { overflow-x: auto; padding: 24px 20px; }
+  .fl-table { min-width: 600px; }
+
+  /* Navigation */
+  .page-nav { display: none; }
+
+  /* Typography & Footer */
+  .section-title { font-size: 32px; }
+  .report-footer { flex-direction: column; align-items: flex-start; gap: 32px; }
+  .footer-meta { text-align: left; }
 }
 
 /* â”€â”€â”€ CHART CONTAINER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
