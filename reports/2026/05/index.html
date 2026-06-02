@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friedland Law — Monthly Intelligence Report · May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --navy-950: #060d18;
+  --navy-900: #0A1425;
+  --navy-800: #122035;
+  --navy-700: #1a2d4a;
+  --navy-600: #243d63;
+  --gold-600: #8a7440;
+  --gold-500: #a8904f;
+  --gold-400: #BEA95E;
+  --gold-300: #cfc07e;
+  --gold-200: #e4d8ae;
+  --white: #FFFFFF;
+  --gray-700: #374151;
+  --gray-500: #6B7280;
+  --gray-400: #9CA3AF;
+  --gray-200: #E5E7EB;
+  --success: #1FC16B;
+  --error: #E53E3E;
+  --orange: #FAA31A;
+  --grad-gold: linear-gradient(135deg, #cfc07e 0%, #BEA95E 45%, #8a7440 100%);
+  --shadow-gold: 0 8px 32px rgba(190,169,94,0.25);
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--navy-950);
+  color: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999;
+}
+
+.ambient { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.orb {
+  position: absolute; border-radius: 50%; filter: blur(100px);
+}
+.orb-1 {
+  width: 600px; height: 600px; top: -200px; right: -100px;
+  background: radial-gradient(circle, rgba(190,169,94,0.06) 0%, transparent 70%);
+  animation: drift 20s ease-in-out infinite;
+}
+.orb-2 {
+  width: 400px; height: 400px; bottom: 10%; left: -100px;
+  background: radial-gradient(circle, rgba(190,169,94,0.04) 0%, transparent 70%);
+  animation: drift 28s ease-in-out infinite reverse;
+}
+@keyframes drift {
+  0%,100% { transform: translate(0,0); }
+  50% { transform: translate(-30px, 40px); }
+}
+
+.page {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+  position: relative; z-index: 1;
+}
+
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 40px;
+  max-width: 1160px;
+  margin: 0 auto;
+  position: relative; z-index: 1;
+}
+
+.cover-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-bottom: 24px;
+}
+
+.cover-title {
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.cover-title em {
+  font-style: italic;
+  background: var(--grad-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cover-subtitle {
+  font-size: 16px;
+  color: var(--gray-400);
+  font-weight: 300;
+  margin-bottom: 56px;
+  max-width: 520px;
+}
+
+.cover-divider {
+  width: 80px; height: 1px;
+  background: var(--grad-gold);
+  margin-bottom: 40px;
+}
+
+.cover-meta {
+  display: flex; gap: 48px; flex-wrap: wrap;
+}
+
+.cover-meta-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-bottom: 4px;
+}
+.cover-meta-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gold-400);
+}
+
+.cover-tagline {
+  position: absolute;
+  bottom: 60px; right: 40px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 300;
+  color: rgba(190,169,94,0.35);
+  text-align: right;
+}
+
+.cover-line {
+  position: absolute;
+  top: 0; right: 200px;
+  width: 1px; height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(190,169,94,0.08) 30%, rgba(190,169,94,0.08) 70%, transparent);
+}
+
+.section {
+  padding-top: 80px;
+}
+
+.section-number {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--gold-400);
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--gold-300);
+}
+
+.section-desc {
+  font-size: 14px;
+  color: var(--gray-500);
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.section-rule {
+  width: 100%; height: 1px;
+  background: linear-gradient(to right, rgba(190,169,94,0.2), transparent);
+  margin-bottom: 40px;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.kpi-card {
+  background: var(--navy-800);
+  border: 1px solid rgba(190,169,94,0.1);
+  border-radius: 12px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.kpi-card:hover {
+  border-color: rgba(190,169,94,0.3);
+  transform: translateY(-2px);
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--grad-gold);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.kpi-card:hover::before { opacity: 1; }
+
+.kpi-card.alert { border-color: rgba(229,62,62,0.25); }
+.kpi-card.alert::before { background: linear-gradient(90deg, #E53E3E, #ff6b6b); opacity: 1; }
+
+.kpi-card.success { border-color: rgba(31,193,107,0.2); }
+.kpi-card.success::before { background: linear-gradient(90deg, #1FC16B, #34d399); opacity: 1; }
+
+.kpi-card.warn { border-color: rgba(250,163,26,0.2); }
+.kpi-card.warn::before { background: linear-gradient(90deg, #FAA31A, #fbbf24); opacity: 1; }
+
+.kpi-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-bottom: 12px;
+}
+
+.kpi-value {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.kpi-value.gold { color: var(--gold-400); }
+.kpi-value.red { color: var(--error); }
+.kpi-value.green { color: var(--success); }
+
+.kpi-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+.kpi-badge.up { background: rgba(31,193,107,0.12); color: var(--success); }
+.kpi-badge.down { background: rgba(229,62,62,0.12); color: var(--error); }
+.kpi-badge.warn { background: rgba(250,163,26,0.12); color: var(--orange); }
+
+.kpi-note {
+  font-size: 12px;
+  color: var(--gray-500);
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.panel {
+  background: var(--navy-800);
+  border: 1px solid rgba(190,169,94,0.08);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 20px;
+}
+
+.panel-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gold-300);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.panel-title .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold-400);
+  flex-shrink: 0;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .two-col, .three-col { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.chart-wrap {
+  position: relative;
+  padding: 20px 0;
+}
+
+.fl-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.fl-table th {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  text-align: left;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(190,169,94,0.1);
+}
+.fl-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--gray-200);
+  vertical-align: top;
+}
+.fl-table tr:last-child td { border-bottom: none; }
+.fl-table tr:hover td { background: rgba(190,169,94,0.03); }
+.fl-table td.bold { font-weight: 600; color: var(--white); }
+.fl-table td.gold { color: var(--gold-400); font-weight: 600; }
+.fl-table td.green { color: var(--success); }
+.fl-table td.red { color: var(--error); }
+.fl-table td.orange { color: var(--orange); }
+
+.callout {
+  border-left: 3px solid var(--gold-400);
+  background: rgba(190,169,94,0.05);
+  padding: 20px 24px;
+  border-radius: 0 8px 8px 0;
+  margin: 20px 0;
+}
+.callout.danger {
+  border-left-color: var(--error);
+  background: rgba(229,62,62,0.05);
+}
+.callout.success {
+  border-left-color: var(--success);
+  background: rgba(31,193,107,0.05);
+}
+.callout-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-bottom: 6px;
+}
+.callout.danger .callout-label { color: var(--error); }
+.callout.success .callout-label { color: var(--success); }
+.callout-text {
+  font-size: 14px;
+  color: var(--gray-200);
+  line-height: 1.6;
+}
+
+.progress-item {
+  margin-bottom: 18px;
+}
+.progress-label {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 6px;
+}
+.progress-name { font-size: 13px; color: var(--gray-400); }
+.progress-value { font-size: 13px; font-weight: 600; color: var(--white); }
+.progress-change { font-size: 11px; color: var(--success); }
+.progress-track {
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--grad-gold);
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.channel-card {
+  background: var(--navy-700);
+  border: 1px solid rgba(190,169,94,0.08);
+  border-radius: 10px;
+  padding: 24px;
+}
+.channel-card-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin-bottom: 4px;
+}
+.channel-card-subtitle {
+  font-size: 12px;
+  color: var(--gray-500);
+  margin-bottom: 20px;
+}
+.channel-stat {
+  margin-bottom: 14px;
+}
+.channel-stat-label {
+  font-size: 11px;
+  color: var(--gray-500);
+  margin-bottom: 2px;
+}
+.channel-stat-value {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--white);
+}
+.channel-stat-note {
+  font-size: 11px;
+  color: var(--gray-500);
+}
+
+.action-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.action-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(190,169,94,0.07);
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+.action-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: rgba(190,169,94,0.1);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+.action-body {}
+.action-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.action-desc {
+  font-size: 13px;
+  color: var(--gray-400);
+  line-height: 1.5;
+}
+
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.roadmap-item {
+  background: var(--navy-700);
+  border: 1px solid rgba(190,169,94,0.08);
+  border-radius: 10px;
+  padding: 20px;
+}
+.roadmap-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--gold-500);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.roadmap-event {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.roadmap-tactic {
+  font-size: 12px;
+  color: var(--gray-400);
+  line-height: 1.5;
+}
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(190,169,94,0.2);
+  color: var(--gold-400);
+  background: rgba(190,169,94,0.06);
+}
+
+.report-footer {
+  margin-top: 80px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(190,169,94,0.1);
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 20px;
+}
+.footer-brand {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-style: italic;
+  color: var(--gold-400);
+}
+.footer-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--gray-500);
+  text-align: right;
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+}
+
+.page-nav {
+  position: fixed;
+  top: 50%; right: 24px;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 8px;
+  z-index: 100;
+}
+.nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(190,169,94,0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.nav-dot:hover, .nav-dot.active {
+  background: var(--gold-400);
+  transform: scale(1.5);
+}
+.nav-dot-label {
+  position: absolute;
+  right: 18px;
+  white-space: nowrap;
+  font-size: 11px;
+  color: var(--gold-400);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  transform: translateY(-50%);
+  top: 50%;
+  background: rgba(6,13,24,0.9);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.nav-dot:hover .nav-dot-label { opacity: 1; }
+.nav-dot-wrap {
+  position: relative;
+  display: flex; align-items: center; justify-content: flex-end;
+}
+
+/* Event Timeline */
+.event-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 10px 0;
+}
+.event-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 16px 0;
+  position: relative;
+}
+.event-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 44px;
+  bottom: -8px;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(190,169,94,0.3), rgba(190,169,94,0.05));
+}
+.event-step-icon {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  border: 1px solid rgba(190,169,94,0.2);
+  background: var(--navy-700);
+  position: relative;
+  z-index: 1;
+}
+.event-step-body {}
+.event-step-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--gold-500);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.event-step-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.event-step-desc {
+  font-size: 13px;
+  color: var(--gray-400);
+  line-height: 1.5;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* IS bar mini */
+.is-bar-wrap { margin-bottom: 12px; }
+.is-bar-label-row {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 5px;
+}
+.is-bar-name { font-size: 12px; color: var(--gray-400); }
+.is-bar-val { font-size: 12px; font-weight: 600; }
+.is-track {
+  height: 5px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.is-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+</style>
+</head>
+<body>
+
+<div class="ambient">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+</div>
+
+<nav class="page-nav">
+  <div class="nav-dot-wrap"><div class="nav-dot active" data-section="cover"><span class="nav-dot-label">Cover</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="dashboard"><span class="nav-dot-label">Dashboard</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="organic"><span class="nav-dot-label">Organic</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="paid"><span class="nav-dot-label">Paid Media</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="channels"><span class="nav-dot-label">Channels</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="activation"><span class="nav-dot-label">Brand Activation</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="action"><span class="nav-dot-label">Action Plan</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="roadmap"><span class="nav-dot-label">Roadmap</span></div></div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════ COVER -->
+<section id="cover">
+  <div class="cover">
+    <div class="cover-line"></div>
+    <div class="cover-eyebrow">Monthly Intelligence Report · May 2026</div>
+    <h1 class="cover-title">
+      Friedland Law<br>
+      <em>Strategic Performance</em><br>
+      Analysis
+    </h1>
+    <p class="cover-subtitle">
+      Paid media consolidation, organic growth, and brand activation assessment — event-driven May with Solo Party and World Cup campaign launch.
+    </p>
+    <div class="cover-divider"></div>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Period</div>
+        <div class="cover-meta-value">May 2026</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Strategic Focus</div>
+        <div class="cover-meta-value">Event-Led Brand Activation</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Total Investment</div>
+        <div class="cover-meta-value">$15,380.61</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Next Review</div>
+        <div class="cover-meta-value">June 9, 2026</div>
+      </div>
+    </div>
+    <div class="cover-tagline">"Friedland, Your Friend"</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ DASHBOARD -->
+<section id="dashboard" class="page">
+  <div class="section fade-up">
+    <div class="section-number">01 · Dashboard</div>
+    <h2 class="section-title">Investment & <em>Return Overview</em></h2>
+    <p class="section-desc">Key performance metrics for May 2026 — measured against Q2 targets, Florida urban market standards, and the bilingual competitive moat.</p>
+    <div class="section-rule"></div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card warn">
+        <div class="kpi-label">Total Paid Investment</div>
+        <div class="kpi-value gold">$15,380</div>
+        <div style="margin-top:8px;">
+          <span class="kpi-badge warn">⚠ 102.5% of $15k cap</span>
+        </div>
+        <div class="kpi-note">Slightly over contractual campaign threshold — management fee review required for June</div>
+      </div>
+
+      <div class="kpi-card success">
+        <div class="kpi-label">Meta Blended CPC</div>
+        <div class="kpi-value green">$0.43</div>
+        <div style="margin-top:8px;">
+          <span class="kpi-badge up">✓ Best-in-class</span>
+        </div>
+        <div class="kpi-note">604,671 unique users reached · 1,087,111 impressions at $7.94 CPM</div>
+      </div>
+
+      <div class="kpi-card success">
+        <div class="kpi-label">Brand Search CPA (Google)</div>
+        <div class="kpi-value green">$16.88</div>
+        <div style="margin-top:8px;">
+          <span class="kpi-badge up">53 brand conversions</span>
+        </div>
+        <div class="kpi-note">Brand awareness investment directly lowering acquisition cost</div>
+      </div>
+
+      <div class="kpi-card alert">
+        <div class="kpi-label">Avg. Search Impression Share</div>
+        <div class="kpi-value red">~28%</div>
+        <div style="margin-top:8px;">
+          <span class="kpi-badge down">⚠ Campaigns underdelivering</span>
+        </div>
+        <div class="kpi-note">72% of eligible searches are won by competitors — scale headroom is massive</div>
+      </div>
+
+      <div class="kpi-card success">
+        <div class="kpi-label">Spanish Campaign CTR</div>
+        <div class="kpi-value gold">6.98%</div>
+        <div style="margin-top:8px;">
+          <span class="kpi-badge up">↑ #1 segment by CTR</span>
+        </div>
+        <div class="kpi-note">90–95% of Friedland's clients are Spanish-speaking — this channel is structurally underinvested</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Instagram Followers (est.)</div>
+        <div class="kpi-value gold">~7,100</div>
+        <div style="margin-top:8px;">
+          <span class="kpi-badge up">↑ May target achieved</span>
+        </div>
+        <div class="kpi-note">+413 vs. March · 2,900 remaining to 10K goal</div>
+      </div>
+    </div>
+
+    <div class="panel fade-up">
+      <div class="panel-title"><span class="dot"></span>Full Performance Summary</div>
+      <table class="fl-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>May 2026 Result</th>
+            <th>Status</th>
+            <th>Context</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bold">Total Paid Investment</td>
+            <td class="gold">$15,380.61</td>
+            <td class="orange">⚠️ Over threshold</td>
+            <td>Exceeded $15k no-extra-fee campaign cap by $380</td>
+          </tr>
+          <tr>
+            <td class="bold">Meta — Total Reach</td>
+            <td class="gold">604,671 users</td>
+            <td class="green">✅ Broad brand coverage</td>
+            <td>1,087,111 impressions · $7.94 CPM</td>
+          </tr>
+          <tr>
+            <td class="bold">Meta — Profile Engagements</td>
+            <td class="gold">193,186</td>
+            <td class="green">✅ $0.012 per engagement</td>
+            <td>Top campaign: [V4] Engajamento Perfil IG</td>
+          </tr>
+          <tr>
+            <td class="bold">Meta — Best Post CPV</td>
+            <td class="gold">$0.34</td>
+            <td class="green">✅ Excellent for legal vertical</td>
+            <td>"At Friedland Law, experience..." — 16,734 site visits</td>
+          </tr>
+          <tr>
+            <td class="bold">Google — Brand Search CPA</td>
+            <td class="gold">$16.88</td>
+            <td class="green">✅ 12× better than generic</td>
+            <td>53 branded conversions · IS 59.9%</td>
+          </tr>
+          <tr>
+            <td class="bold">Google — Generic Search CPA</td>
+            <td>~$150–157</td>
+            <td class="green">✅ Drastically below benchmark</td>
+            <td>FL urban benchmark $1,000+. Real CPA excl. branding: ~$182</td>
+          </tr>
+          <tr>
+            <td class="bold">Spanish Search IS</td>
+            <td class="red">12.4%</td>
+            <td class="red">⚠️ Critical gap</td>
+            <td>6.98% CTR — best segment. Starved of budget</td>
+          </tr>
+          <tr>
+            <td class="bold">All campaigns end-of-month</td>
+            <td class="orange">PAUSED</td>
+            <td class="orange">⚠️ Requires restart</td>
+            <td>Strategic reset for June World Cup activation</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ ORGANIC -->
+<section id="organic" class="page">
+  <div class="section fade-up">
+    <div class="section-number">02 · Organic</div>
+    <h2 class="section-title">Road to <em>10k</em> — Instagram Performance</h2>
+    <p class="section-desc">May marks the month Friedland crossed its Q1 target of 7,000 followers — seven months ahead of schedule when set in mid-2025. The brand trust asset is compounding.</p>
+    <div class="section-rule"></div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Current Followers (est.)</div>
+        <div class="kpi-value gold">~7,100</div>
+        <div style="margin-top:8px;"><span class="kpi-badge up">+413 since March</span></div>
+      </div>
+      <div class="kpi-card success">
+        <div class="kpi-label">Next Milestone</div>
+        <div class="kpi-value green">7,500</div>
+        <div style="margin-top:8px;"><span class="kpi-badge up">~400 to go</span></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Annual Target · Q3 End</div>
+        <div class="kpi-value gold">10,000</div>
+        <div style="margin-top:8px;"><span class="kpi-badge warn">~2,900 to go</span></div>
+      </div>
+    </div>
+
+    <div class="two-col fade-up">
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span>Meta Paid Visibility · May</div>
+        <div class="progress-item">
+          <div class="progress-label">
+            <span class="progress-name">Total Reach</span>
+            <span class="progress-value">604,671 <span class="progress-change">May peak</span></span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">
+            <span class="progress-name">Profile Engagements</span>
+            <span class="progress-value">193,186 <span class="progress-change">$0.012/eng</span></span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" style="width:90%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">
+            <span class="progress-name">Site Visits (Top Post)</span>
+            <span class="progress-value">16,734 <span class="progress-change">$0.34/visit</span></span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" style="width:55%"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label">
+            <span class="progress-name">Est. Follower Growth</span>
+            <span class="progress-value">+413 <span class="progress-change">7K target hit</span></span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" style="width:40%"></div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span>Follower Growth Trajectory</div>
+        <div class="chart-wrap">
+          <canvas id="followerChart" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout fade-up">
+      <div class="callout-label">Strategic Insight</div>
+      <div class="callout-text">Engagement campaigns ($0.012 per profile interaction) are not just cheap — they are building the retargeting pool that eventually feeds qualified lead campaigns. Each profile visitor is a warm audience member. The Meta strategy in May is structurally sound: awareness now, conversion later. The missing link is reactivating the lead generation layer with a gated form.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ PAID MEDIA -->
+<section id="paid" class="page">
+  <div class="section fade-up">
+    <div class="section-number">03 · Paid Media</div>
+    <h2 class="section-title">Brand-Led Strategy — <em>Paid Performance</em></h2>
+    <p class="section-desc">May inverted the March budget split — Meta now leads at 56% share. The pivot reflects the brand awareness mandate ahead of the World Cup activation and Solo Party event.</p>
+    <div class="section-rule"></div>
+
+    <div class="two-col fade-up">
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span>Budget Distribution · May</div>
+        <div class="chart-wrap">
+          <canvas id="budgetChart" height="240"></canvas>
+        </div>
+        <div style="display:flex; gap:16px; margin-top:16px; flex-wrap:wrap;">
+          <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--gray-400);">
+            <div style="width:10px;height:10px;border-radius:2px;background:#243d63;flex-shrink:0;"></div>
+            Meta Ads — $8,632.28
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--gray-400);">
+            <div style="width:10px;height:10px;border-radius:2px;background:#BEA95E;flex-shrink:0;"></div>
+            Google Ads — $6,748.33
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span>Q2 Budget Split Evolution</div>
+        <div class="chart-wrap">
+          <canvas id="q2Chart" height="240"></canvas>
+        </div>
+        <div style="font-size:12px; color:var(--gray-500); margin-top:12px;">March: Google-led. May: Meta-led. Reflects brand awareness pivot ahead of World Cup.</div>
+      </div>
+    </div>
+
+    <div class="panel fade-up">
+      <div class="panel-title"><span class="dot"></span>Spanish Campaign — The Biggest Untapped Opportunity</div>
+      <div class="two-col">
+        <div>
+          <div style="font-size:13px; color:var(--gray-400); margin-bottom:16px;">
+            The <span style="color:var(--gold-400); font-weight:600;">[SEARCH][FL][ES] Car Accident</span> campaign has the highest CTR of all Google campaigns at <strong style="color:var(--success);">6.98%</strong> — yet it holds only <strong style="color:var(--error);">12.4% Impression Share</strong>. Meaning: for every 100 Spanish searches for car accident attorneys in Florida, Friedland appears only 12 times.
+          </div>
+          <div class="callout danger">
+            <div class="callout-label">Root Cause</div>
+            <div class="callout-text">Budget allocation does not match audience priority. 90–95% of Friedland's real clients are Spanish-speaking, yet this campaign received only $906.76 of the $6,748 Google budget. Scaling this campaign to 30–40% IS would likely produce the highest-quality leads in the account at the lowest CPA.</div>
+          </div>
+        </div>
+        <div>
+          <div style="margin-bottom:20px;">
+            <div style="font-family:var(--font-mono); font-size:10px; color:var(--gray-500); margin-bottom:4px; letter-spacing:0.1em; text-transform:uppercase;">Spanish Campaign CTR</div>
+            <div style="font-family:var(--font-serif); font-size:48px; font-weight:600; color:var(--success);">6.98%</div>
+            <div style="font-size:12px; color:var(--gray-500);">#1 CTR in the entire Google account</div>
+          </div>
+          <div style="margin-bottom:16px;">
+            <div style="font-family:var(--font-mono); font-size:10px; color:var(--gray-500); margin-bottom:8px; letter-spacing:0.1em; text-transform:uppercase;">Impression Share by Campaign</div>
+            <div class="is-bar-wrap">
+              <div class="is-bar-label-row">
+                <span class="is-bar-name">Branding Terms</span>
+                <span class="is-bar-val" style="color:var(--success);">59.9%</span>
+              </div>
+              <div class="is-track"><div class="is-fill" style="width:59.9%; background:var(--success);"></div></div>
+            </div>
+            <div class="is-bar-wrap">
+              <div class="is-bar-label-row">
+                <span class="is-bar-name">FL Personal Injury EN</span>
+                <span class="is-bar-val" style="color:var(--orange);">39.8%</span>
+              </div>
+              <div class="is-track"><div class="is-fill" style="width:39.8%; background:var(--orange);"></div></div>
+            </div>
+            <div class="is-bar-wrap">
+              <div class="is-bar-label-row">
+                <span class="is-bar-name">Jacksonville Car Acc.</span>
+                <span class="is-bar-val" style="color:var(--orange);">33.2%</span>
+              </div>
+              <div class="is-track"><div class="is-fill" style="width:33.2%; background:var(--orange);"></div></div>
+            </div>
+            <div class="is-bar-wrap">
+              <div class="is-bar-label-row">
+                <span class="is-bar-name">ES Car Accident 🔥</span>
+                <span class="is-bar-val" style="color:var(--error);">12.4%</span>
+              </div>
+              <div class="is-track"><div class="is-fill" style="width:12.4%; background:var(--error);"></div></div>
+            </div>
+          </div>
+          <div style="padding:12px 16px; background:rgba(31,193,107,0.07); border-radius:8px; border:1px solid rgba(31,193,107,0.15);">
+            <div style="font-size:12px; color:var(--success);">✓ June Action: Reallocate $1,500–$2,000 from EN campaigns to scale Spanish Search IS to 30%+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ CHANNELS -->
+<section id="channels" class="page">
+  <div class="section fade-up">
+    <div class="section-number">04 · Channel Deep Dive</div>
+    <h2 class="section-title">Meta Ads & <em>Google Ads</em></h2>
+    <p class="section-desc">Individual channel performance analysis with unit economics and strategic diagnosis for both paid channels.</p>
+    <div class="section-rule"></div>
+
+    <div class="two-col fade-up">
+      <!-- META ADS -->
+      <div class="panel">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px;">
+          <div>
+            <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em; color:var(--gold-400); text-transform:uppercase; margin-bottom:4px;">Meta Ads</div>
+            <div style="font-family:var(--font-serif); font-size:22px; font-weight:600; color:var(--white);">Audience Channel</div>
+          </div>
+          <span class="tag">$8,632.28</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+          <div class="channel-stat">
+            <div class="channel-stat-label">Profile Engagements</div>
+            <div class="channel-stat-value" style="color:var(--success);">193,186</div>
+            <div class="channel-stat-note">$0.012 per engagement</div>
+          </div>
+          <div class="channel-stat">
+            <div class="channel-stat-label">Best Post CPV</div>
+            <div class="channel-stat-value" style="color:var(--success);">$0.34</div>
+            <div class="channel-stat-note">16,734 site visits driven</div>
+          </div>
+          <div class="channel-stat">
+            <div class="channel-stat-label">Spanish Post CTR</div>
+            <div class="channel-stat-value" style="color:var(--gold-400);">3.27%</div>
+            <div class="channel-stat-note">"Tras un accidente..." — top CTR</div>
+          </div>
+          <div class="channel-stat">
+            <div class="channel-stat-label">Lead Campaigns</div>
+            <div class="channel-stat-value" style="color:var(--orange);">$0</div>
+            <div class="channel-stat-note">Paused — transition in progress</div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="metaChart" height="180"></canvas>
+        </div>
+
+        <div class="callout" style="margin-top:20px;">
+          <div class="callout-label">Strategic Diagnosis</div>
+          <div class="callout-text">Meta is operating as a pure brand awareness and retargeting pipeline engine. No lead conversion active this month — intentional or in transition. The $0.012 engagement cost is building a warm audience pool at scale. Reactivating lead forms with the 10-question qualification filter in June is the critical next step.</div>
+        </div>
+      </div>
+
+      <!-- GOOGLE ADS -->
+      <div class="panel">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px;">
+          <div>
+            <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em; color:var(--gold-400); text-transform:uppercase; margin-bottom:4px;">Google Ads</div>
+            <div style="font-family:var(--font-serif); font-size:22px; font-weight:600; color:var(--white);">Intent Channel</div>
+          </div>
+          <span class="tag">$6,748.33</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+          <div class="channel-stat">
+            <div class="channel-stat-label">Brand Search CPA</div>
+            <div class="channel-stat-value" style="color:var(--success);">$16.88</div>
+            <div class="channel-stat-note">53 brand conversions</div>
+          </div>
+          <div class="channel-stat">
+            <div class="channel-stat-label">Best Generic CPA</div>
+            <div class="channel-stat-value" style="color:var(--gold-400);">$142.53</div>
+            <div class="channel-stat-note">Jacksonville campaign</div>
+          </div>
+          <div class="channel-stat">
+            <div class="channel-stat-label">Account CTR</div>
+            <div class="channel-stat-value">4.69%</div>
+            <div class="channel-stat-note">467 clicks / 9,950 imp.</div>
+          </div>
+          <div class="channel-stat">
+            <div class="channel-stat-label">Total Conversions</div>
+            <div class="channel-stat-value">~91</div>
+            <div class="channel-stat-note">53 brand + 38 intent</div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="googleChart" height="180"></canvas>
+        </div>
+
+        <div class="callout success" style="margin-top:20px;">
+          <div class="callout-label">Strategic Strength</div>
+          <div class="callout-text">Brand search CPA at $16.88 continues to be the most efficient acquisition lever in the account — 9× cheaper than generic terms. This confirms that each dollar invested in brand awareness (organic content + Meta reach) directly reduces Google acquisition cost. The flywheel is working.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Google Campaign Detail Table -->
+    <div class="panel fade-up">
+      <div class="panel-title"><span class="dot"></span>Google Ads · Campaign Breakdown — May 2026</div>
+      <table class="fl-table">
+        <thead>
+          <tr>
+            <th>Campaign</th>
+            <th>Spend</th>
+            <th>Clicks</th>
+            <th>CTR</th>
+            <th>CPC</th>
+            <th>Conv.</th>
+            <th>CPA</th>
+            <th>Imp. Share</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bold">[Branding Terms] [09-11]</td>
+            <td class="gold">$894.28</td>
+            <td>232</td>
+            <td class="green">16.19%</td>
+            <td>$3.85</td>
+            <td class="green">53</td>
+            <td class="green">$16.88</td>
+            <td class="green">59.9%</td>
+          </tr>
+          <tr>
+            <td class="bold">[SEARCH][FL] Personal Injury EN</td>
+            <td class="gold">$4,092.10</td>
+            <td>122</td>
+            <td>2.12%</td>
+            <td>$33.54</td>
+            <td>26</td>
+            <td>$157.39</td>
+            <td class="orange">39.8%</td>
+          </tr>
+          <tr>
+            <td class="bold">[SEARCH][Jacksonville] Car Accident</td>
+            <td class="gold">$855.19</td>
+            <td>38</td>
+            <td>2.26%</td>
+            <td>$22.51</td>
+            <td>6</td>
+            <td>$142.53</td>
+            <td class="orange">33.2%</td>
+          </tr>
+          <tr>
+            <td class="bold">[SEARCH][FL][ES] Car Accident 🔥</td>
+            <td>$906.76</td>
+            <td>75</td>
+            <td class="green">6.98%</td>
+            <td>$12.09</td>
+            <td>6</td>
+            <td class="green">$151.13</td>
+            <td class="red">12.4%</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:16px; font-size:12px; color:var(--gray-500);">NY Search, NY Demand Gen, PMAX FL, LSA Jacksonville — $0 delivered (paused).</div>
+    </div>
+
+    <!-- Bilingual Multiplier -->
+    <div class="panel fade-up" style="background:var(--navy-700);">
+      <div class="panel-title"><span class="dot"></span>The Bilingual Moat — Competitive Structural Advantage</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:24px;">
+        <div style="text-align:center; padding:20px;">
+          <div style="font-family:var(--font-serif); font-size:52px; font-weight:600; color:var(--gold-400);">90%</div>
+          <div style="font-size:13px; color:var(--gray-400); margin-top:4px;">of real clients are Hispanic</div>
+        </div>
+        <div style="text-align:center; padding:20px;">
+          <div style="font-family:var(--font-serif); font-size:52px; font-weight:600; color:var(--success);">6.98%</div>
+          <div style="font-size:13px; color:var(--gray-400); margin-top:4px;">Spanish Search CTR</div>
+        </div>
+        <div style="padding:20px; display:flex; flex-direction:column; justify-content:center;">
+          <div style="font-size:14px; color:var(--gray-200); line-height:1.7;">
+            Morgan & Morgan, Farah & Farah and other scale players communicate in English. Their mass-market positioning creates a structural gap in Spanish-language intent. Friedland's ability to meet this audience in their own language — with culturally adapted messaging, not just translated copy — is not replicable without a full identity shift from competitors.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ BRAND ACTIVATION -->
+<section id="activation" class="page">
+  <div class="section fade-up">
+    <div class="section-number">05 · Brand Activation</div>
+    <h2 class="section-title">Solo Party & <em>World Cup</em></h2>
+    <p class="section-desc">May marked Friedland's first owned community event — the Solo Party on May 29 — while simultaneously launching the World Cup 2026 brand engagement campaign. Two high-impact community anchors in a single month.</p>
+    <div class="section-rule"></div>
+
+    <div class="two-col fade-up">
+      <div>
+        <div class="panel">
+          <div class="panel-title"><span class="dot"></span>Solo Party · May 29 — Event Timeline</div>
+          <div class="event-timeline">
+            <div class="event-step">
+              <div class="event-step-icon">📣</div>
+              <div class="event-step-body">
+                <div class="event-step-date">Pre-Event · Early May</div>
+                <div class="event-step-title">Digital Campaign Launch</div>
+                <div class="event-step-desc">Paid Meta awareness + organic content driving awareness and RSVPs. Hashtag strategy activated. Email blast to the 1,000-contact list.</div>
+              </div>
+            </div>
+            <div class="event-step">
+              <div class="event-step-icon">🏛️</div>
+              <div class="event-step-body">
+                <div class="event-step-date">May 29</div>
+                <div class="event-step-title">Event Day — Friedland Exclusive</div>
+                <div class="event-step-desc">Friedland Law as sole sponsor. Guests included chiropractors, orthopedists, and personal injury referral partners. Team photos, social media coverage, and brand visibility materials deployed.</div>
+              </div>
+            </div>
+            <div class="event-step">
+              <div class="event-step-icon">📧</div>
+              <div class="event-step-body">
+                <div class="event-step-date">Post-Event · June</div>
+                <div class="event-step-title">Follow-Up Sequence</div>
+                <div class="event-step-desc">Email sequence to attendees. Retargeting campaign to lookalike audiences of event-engaged users. Photo content repurposed across Instagram and Facebook.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel">
+          <div class="panel-title"><span class="dot"></span>World Cup 2026 — Brand Engagement Campaign</div>
+          <div style="font-size:13px; color:var(--gray-400); margin-bottom:20px; line-height:1.6;">
+            FIFA World Cup 2026 opens June 11 in the United States — the most watched sporting event in the world, with 47% of global viewership from Latin America. Friedland approved a World Cup engagement campaign in April to capitalize on this cultural moment with its core Hispanic community.
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;">
+            <div style="padding:16px; background:var(--navy-700); border-radius:8px; border:1px solid rgba(190,169,94,0.1);">
+              <div style="font-family:var(--font-mono); font-size:10px; color:var(--gray-500); margin-bottom:4px; letter-spacing:0.1em; text-transform:uppercase;">Primary Audience</div>
+              <div style="font-size:14px; font-weight:600; color:var(--white);">Hispanic FL Community</div>
+              <div style="font-size:12px; color:var(--gray-500);">EN + ES creatives with team jerseys</div>
+            </div>
+            <div style="padding:16px; background:var(--navy-700); border-radius:8px; border:1px solid rgba(190,169,94,0.1);">
+              <div style="font-family:var(--font-mono); font-size:10px; color:var(--gray-500); margin-bottom:4px; letter-spacing:0.1em; text-transform:uppercase;">Asset Type</div>
+              <div style="font-size:14px; font-weight:600; color:var(--white);">Video + Static</div>
+              <div style="font-size:12px; color:var(--gray-500);">New Friedland logo · Official Copa branding</div>
+            </div>
+            <div style="padding:16px; background:var(--navy-700); border-radius:8px; border:1px solid rgba(190,169,94,0.1);">
+              <div style="font-family:var(--font-mono); font-size:10px; color:var(--gray-500); margin-bottom:4px; letter-spacing:0.1em; text-transform:uppercase;">Campaign Window</div>
+              <div style="font-size:14px; font-weight:600; color:var(--white);">June 11 – July 19</div>
+              <div style="font-size:12px; color:var(--gray-500);">38 days · Group stage peak</div>
+            </div>
+            <div style="padding:16px; background:var(--navy-700); border-radius:8px; border:1px solid rgba(190,169,94,0.1);">
+              <div style="font-family:var(--font-mono); font-size:10px; color:var(--gray-500); margin-bottom:4px; letter-spacing:0.1em; text-transform:uppercase;">Objective</div>
+              <div style="font-size:14px; font-weight:600; color:var(--white);">Community Trust</div>
+              <div style="font-size:12px; color:var(--gray-500);">Cultural anchor + brand recall lift</div>
+            </div>
+          </div>
+          <div class="callout success">
+            <div class="callout-label">Strategic Window</div>
+            <div class="callout-text">World Cup 2026 is hosted in the USA — the first time in 32 years. Games in Miami, Atlanta, and Houston place Friedland's primary markets in the epicenter. Top-of-mind presence during the tournament directly competes with no lawyer and every personal injury attorney who isn't culturally present in this community.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ ACTION PLAN -->
+<section id="action" class="page">
+  <div class="section fade-up">
+    <div class="section-number">06 · Action Plan</div>
+    <h2 class="section-title">June 2026 — <em>Reactivation</em> Sprint</h2>
+    <p class="section-desc">Three parallel workstreams: campaign reactivation with qualified lead forms, Spanish search scaling, and World Cup community activation.</p>
+    <div class="section-rule"></div>
+
+    <div class="two-col fade-up">
+      <div>
+        <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-400); margin-bottom:16px;">Lead Generation Reactivation</div>
+        <ul class="action-list">
+          <li class="action-item">
+            <div class="action-icon">📋</div>
+            <div class="action-body">
+              <div class="action-title">Relaunch Meta Lead Campaigns with 10-Question Form</div>
+              <div class="action-desc">Activate the gated lead form approved in April with Juanita's 10-filter qualification questions. Accident date, injury type, at-fault clarity, and insurance status must gate all form submissions before reaching Intake.</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <div class="action-icon">🇪🇸</div>
+            <div class="action-body">
+              <div class="action-title">Scale Spanish Search Campaign to 30%+ IS</div>
+              <div class="action-desc">Reallocate $1,500–$2,000 from EN generic campaigns to [SEARCH][FL][ES]. The 6.98% CTR and $151 CPA make this the highest-ROI scaling opportunity in the account — massively underinvested relative to client demographics.</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <div class="action-icon">🔄</div>
+            <div class="action-body">
+              <div class="action-title">Restart All Paused Campaigns</div>
+              <div class="action-desc">All campaigns ended May paused. Full account restart required for June. Prioritize: Branding → Spanish Search → FL Personal Injury → Jacksonville. Reactivate NY/NJ campaigns only after FL IS targets are met.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-400); margin-bottom:16px;">Community & Digital Assets</div>
+        <ul class="action-list">
+          <li class="action-item">
+            <div class="action-icon">⚽</div>
+            <div class="action-body">
+              <div class="action-title">World Cup Campaign Activation (June 11)</div>
+              <div class="action-desc">Launch World Cup video + static creatives across Meta and Instagram. Bilingual content with team jerseys and new Friedland logo. Target FL Hispanic community with engagement + traffic objectives. Full calendar pre-scheduled.</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <div class="action-icon">📸</div>
+            <div class="action-body">
+              <div class="action-title">Solo Party Content Repurposing</div>
+              <div class="action-desc">Convert May 29 event photos and videos into an Instagram carousel, Reels, and a settlement-style post. Email follow-up sequence to attendee list. Meta retargeting campaign targeting lookalike audiences from event engagement.</div>
+            </div>
+          </li>
+          <li class="action-item">
+            <div class="action-icon">📊</div>
+            <div class="action-body">
+              <div class="action-title">Budget Threshold Review</div>
+              <div class="action-desc">May investment of $15,380.61 exceeded the $15k no-extra-fee contractual threshold by $380. Confirm fee treatment with Adam before setting June campaign budgets. Cap June campaigns at $14,900 to maintain clarity.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ ROADMAP -->
+<section id="roadmap" class="page">
+  <div class="section fade-up">
+    <div class="section-number">07 · Roadmap</div>
+    <h2 class="section-title">Content Calendar — <em>June 2026</em></h2>
+    <p class="section-desc">High-impact cultural and community anchors for June — led by World Cup, with road safety, family, and community celebration themes reinforcing the bilingual brand presence.</p>
+    <div class="section-rule"></div>
+
+    <div class="roadmap-grid fade-up">
+      <div class="roadmap-item" style="border-color:rgba(190,169,94,0.25); background:rgba(190,169,94,0.04);">
+        <div class="roadmap-date">June 11</div>
+        <div class="roadmap-event" style="color:var(--gold-400);">World Cup Kicks Off</div>
+        <div class="roadmap-tactic">FIFA World Cup 2026 opens in the USA. Launch full campaign — videos with team jerseys, bilingual copy, boosted posts targeting the FL Hispanic community.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-date">June — 3rd Sun</div>
+        <div class="roadmap-event">Father's Day</div>
+        <div class="roadmap-tactic">Spotlight Lee Friedland and male attorneys. Family firm narrative. "For every father who needs a fighter in their corner." EN + ES versions.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-date">June 19</div>
+        <div class="roadmap-event">Juneteenth</div>
+        <div class="roadmap-tactic">Community acknowledgment and brand values post. Friedland as ally to all communities — reinforces inclusive positioning without losing brand tone.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-date">June — Early</div>
+        <div class="roadmap-event">Solo Party Follow-Up</div>
+        <div class="roadmap-tactic">Email sequence to attendees + retargeting via Meta. Repurpose event photos into Reels and carousel. Settlement + team photo post from the event.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-date">June — Ongoing</div>
+        <div class="roadmap-event">Road Safety Content</div>
+        <div class="roadmap-tactic">Summer driving season peak. Car accident educational posts and search ads. Memorial Day traffic data used as awareness hook for June targeting.</div>
+      </div>
+      <div class="roadmap-item" style="border-color:rgba(31,193,107,0.2); background:rgba(31,193,107,0.03);">
+        <div class="roadmap-date">Milestone</div>
+        <div class="roadmap-event" style="color:var(--success);">7,500 Followers</div>
+        <div class="roadmap-tactic">Target end-of-June. ~400 followers from est. 7,100. World Cup content expected to drive strong follower acquisition from the Hispanic community.</div>
+      </div>
+    </div>
+
+    <div class="report-footer fade-up">
+      <div>
+        <div class="footer-brand">Friedland Law</div>
+        <div style="font-size:13px; color:var(--gray-500); margin-top:4px; font-style:italic;">Friedland, Your Friend</div>
+      </div>
+      <div class="footer-meta">
+        Monthly Intelligence Report · May 2026<br>
+        Produced by Lisboa & CO / V4 Company<br>
+        Next Review: June 9, 2026<br>
+        Confidential — Internal Use Only
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+Chart.defaults.color = '#6B7280';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.05)';
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.font.size = 12;
+
+// ─── FOLLOWER CHART ──────────────────────────────────────────
+new Chart(document.getElementById('followerChart'), {
+  type: 'line',
+  data: {
+    labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'May', 'Jun (T)', 'Q3 (T)'],
+    datasets: [{
+      label: 'Followers',
+      data: [5600, 5800, 6000, 6150, 6029, 6687, 7100, 7500, 10000],
+      borderColor: '#BEA95E',
+      borderWidth: 2,
+      pointBackgroundColor: ['#BEA95E','#BEA95E','#BEA95E','#BEA95E','#BEA95E','#BEA95E','#1FC16B','#cfc07e','#cfc07e'],
+      pointRadius: [3,3,3,3,3,4,6,4,4],
+      pointBorderColor: '#060d18',
+      pointBorderWidth: 2,
+      fill: true,
+      backgroundColor: function(ctx) {
+        const g = ctx.chart.ctx.createLinearGradient(0, 0, 0, 200);
+        g.addColorStop(0, 'rgba(190,169,94,0.2)');
+        g.addColorStop(1, 'rgba(190,169,94,0)');
+        return g;
+      },
+      tension: 0.4
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#122035',
+        titleColor: '#BEA95E',
+        bodyColor: '#E5E7EB',
+        borderColor: 'rgba(190,169,94,0.2)',
+        borderWidth: 1
+      }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#6B7280' } },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.03)' },
+        ticks: { color: '#6B7280', callback: v => v >= 1000 ? (v/1000)+'k' : v }
+      }
+    }
+  }
+});
+
+// ─── BUDGET DONUT ────────────────────────────────────────────
+new Chart(document.getElementById('budgetChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Meta Ads', 'Google Ads'],
+    datasets: [{
+      data: [8632.28, 6748.33],
+      backgroundColor: ['#1a2d4a', '#BEA95E'],
+      borderColor: ['#243d63', '#BEA95E'],
+      borderWidth: 2,
+      hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '70%',
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#122035',
+        titleColor: '#BEA95E',
+        bodyColor: '#E5E7EB',
+        borderColor: 'rgba(190,169,94,0.2)',
+        borderWidth: 1,
+        callbacks: {
+          label: ctx => ' $' + ctx.raw.toLocaleString('en-US', {minimumFractionDigits:2})
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'centerText',
+    beforeDraw(chart) {
+      const { ctx, width, height } = chart;
+      ctx.save();
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#BEA95E';
+      ctx.font = "600 22px 'Cormorant Garamond', serif";
+      ctx.fillText('$15,380', width/2, height/2 - 10);
+      ctx.fillStyle = '#6B7280';
+      ctx.font = "11px 'Inter', sans-serif";
+      ctx.fillText('Total Invested', width/2, height/2 + 14);
+      ctx.restore();
+    }
+  }]
+});
+
+// ─── Q2 SHIFT CHART ──────────────────────────────────────────
+new Chart(document.getElementById('q2Chart'), {
+  type: 'bar',
+  data: {
+    labels: ['March', 'April (est.)', 'May'],
+    datasets: [
+      {
+        label: 'Google Ads',
+        data: [62, 52, 44],
+        backgroundColor: '#BEA95E',
+        borderRadius: 4
+      },
+      {
+        label: 'Meta Ads',
+        data: [38, 48, 56],
+        backgroundColor: '#1a2d4a',
+        borderRadius: 4
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      x: { stacked: true, grid: { display: false }, ticks: { color: '#6B7280' } },
+      y: {
+        stacked: true,
+        grid: { color: 'rgba(255,255,255,0.03)' },
+        ticks: { color: '#6B7280', callback: v => v+'%' },
+        max: 100
+      }
+    },
+    plugins: {
+      legend: {
+        display: true,
+        labels: { color: '#9CA3AF', boxWidth: 10, boxHeight: 10 }
+      },
+      tooltip: {
+        backgroundColor: '#122035',
+        titleColor: '#BEA95E',
+        bodyColor: '#E5E7EB',
+        borderColor: 'rgba(190,169,94,0.2)',
+        borderWidth: 1,
+        callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + ctx.raw + '%' }
+      }
+    }
+  }
+});
+
+// ─── META CHART (spend by campaign type) ─────────────────────
+new Chart(document.getElementById('metaChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Traffic\n"At Friedland"', 'Profile\nEngagement', 'Traffic ES\n"Accidente"', 'Other\nTraffic Posts', 'Lead Gen\n(Paused)'],
+    datasets: [{
+      data: [5741.19, 2316.56, 357.95, 216.58, 0],
+      backgroundColor: [
+        'rgba(190,169,94,0.5)',
+        'rgba(190,169,94,0.35)',
+        'rgba(31,193,107,0.35)',
+        'rgba(190,169,94,0.2)',
+        'rgba(229,62,62,0.15)'
+      ],
+      borderColor: ['#BEA95E', '#a8904f', '#1FC16B', '#8a7440', '#E53E3E'],
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#122035',
+        titleColor: '#BEA95E',
+        bodyColor: '#E5E7EB',
+        borderColor: 'rgba(190,169,94,0.2)',
+        borderWidth: 1,
+        callbacks: { label: ctx => ' $' + ctx.raw.toLocaleString('en-US', {minimumFractionDigits:2}) }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#6B7280', font: { size: 10 } } },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.03)' },
+        ticks: { color: '#6B7280', callback: v => '$'+v }
+      }
+    }
+  }
+});
+
+// ─── GOOGLE CHART (CPA by campaign) ──────────────────────────
+new Chart(document.getElementById('googleChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Branding\nCPA ($)', 'Jacksonville\nCPA ($)', 'ES Car Acc\nCPA ($)', 'FL PI EN\nCPA ($)'],
+    datasets: [{
+      data: [16.88, 142.53, 151.13, 157.39],
+      backgroundColor: [
+        'rgba(31,193,107,0.4)',
+        'rgba(190,169,94,0.35)',
+        'rgba(31,193,107,0.25)',
+        'rgba(190,169,94,0.2)'
+      ],
+      borderColor: ['#1FC16B', '#BEA95E', '#1FC16B', '#a8904f'],
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#122035',
+        titleColor: '#BEA95E',
+        bodyColor: '#E5E7EB',
+        borderColor: 'rgba(190,169,94,0.2)',
+        borderWidth: 1,
+        callbacks: { label: ctx => ' $' + ctx.raw.toFixed(2) + ' CPA' }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#6B7280', font: { size: 10 } } },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.03)' },
+        ticks: { color: '#6B7280', callback: v => '$'+v }
+      }
+    }
+  }
+});
+
+// ─── INTERSECTION OBSERVER (fade-up) ─────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ─── NAV DOTS ────────────────────────────────────────────────
+const sections = document.querySelectorAll('section[id]');
+const dots = document.querySelectorAll('.nav-dot[data-section]');
+
+const secObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      dots.forEach(d => d.classList.remove('active'));
+      const active = document.querySelector(`.nav-dot[data-section="${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+
+sections.forEach(s => secObserver.observe(s));
+
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const id = dot.dataset.section;
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
