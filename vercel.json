@@ -1,12 +1,6 @@
 {
   "cleanUrls": true,
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "/reports/2026/03/",
-      "permanent": false
-    }
-  ],
+  "redirects": [],
   "headers": [
     {
       "source": "/assets/(.*)",

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friedland Law — Monthly Intelligence Report · August 2026 (Partial)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --navy-950: #060d18;
+  --navy-900: #0A1425;
+  --navy-800: #122035;
+  --navy-700: #1a2d4a;
+  --navy-600: #243d63;
+  --gold-600: #8a7440;
+  --gold-500: #a8904f;
+  --gold-400: #BEA95E;
+  --gold-300: #cfc07e;
+  --gold-200: #e4d8ae;
+  --white: #FFFFFF;
+  --gray-700: #374151;
+  --gray-500: #6B7280;
+  --gray-400: #9CA3AF;
+  --gray-200: #E5E7EB;
+  --success: #1FC16B;
+  --error: #E53E3E;
+  --orange: #FAA31A;
+  --grad-gold: linear-gradient(135deg, #cfc07e 0%, #BEA95E 45%, #8a7440 100%);
+  --shadow-gold: 0 8px 32px rgba(190,169,94,0.25);
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--navy-950);
+  color: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999;
+}
+
+.ambient { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.orb { position: absolute; border-radius: 50%; filter: blur(100px); }
+.orb-1 { width: 600px; height: 600px; top: -200px; right: -100px; background: radial-gradient(circle, rgba(190,169,94,0.06) 0%, transparent 70%); animation: drift 20s ease-in-out infinite; }
+.orb-2 { width: 400px; height: 400px; bottom: 10%; left: -100px; background: radial-gradient(circle, rgba(190,169,94,0.04) 0%, transparent 70%); animation: drift 28s ease-in-out infinite reverse; }
+@keyframes drift { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-30px, 40px); } }
+
+.page { max-width: 1160px; margin: 0 auto; padding: 0 40px 80px; position: relative; z-index: 1; }
+
+.cover { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 80px 40px; max-width: 1160px; margin: 0 auto; position: relative; z-index: 1; }
+.cover-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 24px; }
+.cover-title { font-family: var(--font-serif); font-size: clamp(48px, 7vw, 88px); font-weight: 300; line-height: 1.05; color: var(--white); margin-bottom: 16px; }
+.cover-title em { font-style: italic; background: var(--grad-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.cover-subtitle { font-size: 16px; color: var(--gray-400); font-weight: 300; margin-bottom: 56px; max-width: 560px; }
+.cover-divider { width: 80px; height: 1px; background: var(--grad-gold); margin-bottom: 40px; }
+.cover-meta { display: flex; gap: 48px; flex-wrap: wrap; }
+.cover-meta-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-500); margin-bottom: 4px; }
+.cover-meta-value { font-size: 15px; font-weight: 600; color: var(--gold-400); }
+.cover-tagline { position: absolute; bottom: 60px; right: 40px; font-family: var(--font-serif); font-style: italic; font-size: 22px; font-weight: 300; color: rgba(190,169,94,0.35); text-align: right; }
+.cover-line { position: absolute; top: 0; right: 200px; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, rgba(190,169,94,0.08) 30%, rgba(190,169,94,0.08) 70%, transparent); }
+
+.section { padding-top: 80px; }
+.section-number { font-family: var(--font-mono); font-size: 11px; color: var(--gold-400); letter-spacing: 0.15em; margin-bottom: 8px; }
+.section-title { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 44px); font-weight: 300; color: var(--white); line-height: 1.15; margin-bottom: 8px; }
+.section-title em { font-style: italic; color: var(--gold-300); }
+.section-desc { font-size: 14px; color: var(--gray-500); max-width: 620px; margin-bottom: 40px; }
+.section-rule { width: 100%; height: 1px; background: linear-gradient(to right, rgba(190,169,94,0.2), transparent); margin-bottom: 40px; }
+
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 40px; }
+.kpi-card { background: var(--navy-800); border: 1px solid rgba(190,169,94,0.1); border-radius: 12px; padding: 28px 24px; position: relative; overflow: hidden; transition: border-color 0.3s ease, transform 0.3s ease; }
+.kpi-card:hover { border-color: rgba(190,169,94,0.3); transform: translateY(-2px); }
+.kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--grad-gold); opacity: 0; transition: opacity 0.3s ease; }
+.kpi-card:hover::before { opacity: 1; }
+.kpi-card.alert { border-color: rgba(229,62,62,0.25); }
+.kpi-card.alert::before { background: linear-gradient(90deg, #E53E3E, #ff6b6b); opacity: 1; }
+.kpi-card.success { border-color: rgba(31,193,107,0.2); }
+.kpi-card.success::before { background: linear-gradient(90deg, #1FC16B, #34d399); opacity: 1; }
+.kpi-card.warn { border-color: rgba(250,163,26,0.2); }
+.kpi-card.warn::before { background: linear-gradient(90deg, #FAA31A, #fbbf24); opacity: 1; }
+.kpi-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-500); margin-bottom: 12px; }
+.kpi-value { font-family: var(--font-serif); font-size: 36px; font-weight: 600; color: var(--white); line-height: 1; margin-bottom: 10px; }
+.kpi-value.gold { color: var(--gold-400); }
+.kpi-value.red { color: var(--error); }
+.kpi-value.green { color: var(--success); }
+.kpi-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; }
+.kpi-badge.up { background: rgba(31,193,107,0.12); color: var(--success); }
+.kpi-badge.down { background: rgba(229,62,62,0.12); color: var(--error); }
+.kpi-badge.warn { background: rgba(250,163,26,0.12); color: var(--orange); }
+.kpi-note { font-size: 12px; color: var(--gray-500); margin-top: 8px; line-height: 1.4; }
+
+.panel { background: var(--navy-800); border: 1px solid rgba(190,169,94,0.08); border-radius: 12px; padding: 32px; margin-bottom: 20px; }
+.panel-title { font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: var(--gold-300); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.panel-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-400); flex-shrink: 0; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 768px) { .two-col, .three-col { grid-template-columns: 1fr; } .kpi-grid { grid-template-columns: 1fr 1fr; } }
+
+.chart-wrap { position: relative; padding: 20px 0; }
+
+.fl-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.fl-table th { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-500); text-align: left; padding: 10px 16px; border-bottom: 1px solid rgba(190,169,94,0.1); }
+.fl-table td { padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--gray-200); vertical-align: top; }
+.fl-table tr:last-child td { border-bottom: none; }
+.fl-table tr:hover td { background: rgba(190,169,94,0.03); }
+.fl-table td.bold { font-weight: 600; color: var(--white); }
+.fl-table td.gold { color: var(--gold-400); font-weight: 600; }
+.fl-table td.green { color: var(--success); }
+.fl-table td.red { color: var(--error); }
+.fl-table td.orange { color: var(--orange); }
+
+.callout { border-left: 3px solid var(--gold-400); background: rgba(190,169,94,0.05); padding: 20px 24px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+.callout.danger { border-left-color: var(--error); background: rgba(229,62,62,0.05); }
+.callout.success { border-left-color: var(--success); background: rgba(31,193,107,0.05); }
+.callout-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-400); margin-bottom: 6px; }
+.callout.danger .callout-label { color: var(--error); }
+.callout.success .callout-label { color: var(--success); }
+.callout-text { font-size: 14px; color: var(--gray-200); line-height: 1.6; }
+
+.channel-card { background: var(--navy-700); border: 1px solid rgba(190,169,94,0.08); border-radius: 10px; padding: 24px; }
+.channel-stat { margin-bottom: 14px; }
+.channel-stat-label { font-size: 11px; color: var(--gray-500); margin-bottom: 2px; }
+.channel-stat-value { font-family: var(--font-serif); font-size: 24px; font-weight: 600; color: var(--white); }
+.channel-stat-note { font-size: 11px; color: var(--gray-500); }
+
+.action-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.action-item { display: flex; gap: 16px; align-items: flex-start; background: rgba(255,255,255,0.02); border: 1px solid rgba(190,169,94,0.07); border-radius: 8px; padding: 18px 20px; }
+.action-icon { width: 32px; height: 32px; border-radius: 8px; background: rgba(190,169,94,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; }
+.action-title { font-weight: 600; font-size: 14px; color: var(--white); margin-bottom: 4px; }
+.action-desc { font-size: 13px; color: var(--gray-400); line-height: 1.5; }
+
+.tag { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(190,169,94,0.2); color: var(--gold-400); background: rgba(190,169,94,0.06); }
+
+.report-footer { margin-top: 80px; padding-top: 40px; border-top: 1px solid rgba(190,169,94,0.1); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px; }
+.footer-brand { font-family: var(--font-serif); font-size: 18px; font-style: italic; color: var(--gold-400); }
+.footer-meta { font-family: var(--font-mono); font-size: 10px; color: var(--gray-500); text-align: right; line-height: 1.8; letter-spacing: 0.05em; }
+
+.page-nav { position: fixed; top: 50%; right: 24px; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; z-index: 100; }
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(190,169,94,0.2); cursor: pointer; transition: all 0.3s ease; }
+.nav-dot:hover, .nav-dot.active { background: var(--gold-400); transform: scale(1.5); }
+.nav-dot-label { position: absolute; right: 18px; white-space: nowrap; font-size: 11px; color: var(--gold-400); opacity: 0; pointer-events: none; transition: opacity 0.2s; transform: translateY(-50%); top: 50%; background: rgba(6,13,24,0.9); padding: 3px 8px; border-radius: 4px; }
+.nav-dot:hover .nav-dot-label { opacity: 1; }
+.nav-dot-wrap { position: relative; display: flex; align-items: center; justify-content: flex-end; }
+
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+.spotlight { text-align: center; padding: 32px; background: var(--navy-700); border-radius: 10px; }
+.spotlight-num { font-family: var(--font-serif); font-size: 72px; font-weight: 600; line-height: 1; }
+.spotlight-label { font-size: 14px; color: var(--gray-400); margin-top: 10px; }
+.spotlight-row { margin-top: 20px; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+.spotlight-mini-val { font-family: var(--font-serif); font-size: 26px; font-weight: 600; color: var(--gold-400); }
+.spotlight-mini-label { font-size: 11px; color: var(--gray-500); }
+</style>
+</head>
+<body>
+
+<div class="ambient"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
+
+<nav class="page-nav">
+  <div class="nav-dot-wrap"><div class="nav-dot active" data-section="cover"><span class="nav-dot-label">Cover</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="dashboard"><span class="nav-dot-label">Dashboard</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="google"><span class="nav-dot-label">Google Ads</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="leads"><span class="nav-dot-label">Leads Visibility</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="approval"><span class="nav-dot-label">Approvals</span></div></div>
+  <div class="nav-dot-wrap"><div class="nav-dot" data-section="action"><span class="nav-dot-label">Next Steps</span></div></div>
+</nav>
+
+<!-- COVER -->
+<section id="cover">
+  <div class="cover">
+    <div class="cover-line"></div>
+    <div class="cover-eyebrow">Monthly Intelligence Report · Partial — August 2026 (Aug 1–28)</div>
+    <h1 class="cover-title">Friedland Law<br><em>Google Ads &amp;</em><br>Lead Visibility Pulse</h1>
+    <p class="cover-subtitle">A mid-month check-in ahead of the full August report — Google Ads conversion performance, a critical gap in lead pipeline visibility, and creative material pending client approval.</p>
+    <div class="cover-divider"></div>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><div class="cover-meta-label">Period</div><div class="cover-meta-value">Aug 1–28, 2026 (partial)</div></div>
+      <div class="cover-meta-item"><div class="cover-meta-label">Google Ads Investment</div><div class="cover-meta-value">$14,469.12</div></div>
+      <div class="cover-meta-item"><div class="cover-meta-label">Google Ads Conversions</div><div class="cover-meta-value">122</div></div>
+      <div class="cover-meta-item"><div class="cover-meta-label">Leads Tracked (Intaker+GHL)</div><div class="cover-meta-value">39</div></div>
+    </div>
+    <div class="cover-tagline">"Friedland, Your Friend"</div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="page">
+  <div class="section fade-up">
+    <div class="section-number">01 · Dashboard</div>
+    <h2 class="section-title">Where We Stand — <em>August, Day 28</em></h2>
+    <p class="section-desc">Google Ads is converting at record volume this month, but the leads it feeds into downstream systems are going dark the moment they land — that gap is this report's headline issue.</p>
+    <div class="section-rule"></div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Google Ads Investment</div>
+        <div class="kpi-value gold">$14,469</div>
+        <div style="margin-top:8px;"><span class="kpi-badge up">96.5% of $15k monthly cap</span></div>
+        <div class="kpi-note">Through Aug 28 — on pace to close near cap</div>
+      </div>
+      <div class="kpi-card success">
+        <div class="kpi-label">Google Ads Conversions</div>
+        <div class="kpi-value green">122</div>
+        <div style="margin-top:8px;"><span class="kpi-badge up">83% are phone calls</span></div>
+        <div class="kpi-note">101 calls · 21 form submissions tracked by Google</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Blended Cost / Conversion</div>
+        <div class="kpi-value gold">$118.61</div>
+        <div style="margin-top:8px;"><span class="kpi-badge warn">Branding as low as $17.34</span></div>
+        <div class="kpi-note">Weighted across 4 active campaigns</div>
+      </div>
+      <div class="kpi-card alert">
+        <div class="kpi-label">Leads Tracked — Intaker + GHL</div>
+        <div class="kpi-value red">39</div>
+        <div style="margin-top:8px;"><span class="kpi-badge down">No pipeline visibility</span></div>
+        <div class="kpi-note">27 Intaker · 12 GoHighLevel — status after entry unknown</div>
+      </div>
+      <div class="kpi-card warn">
+        <div class="kpi-label">ES Search Impression Share</div>
+        <div class="kpi-value gold">21.4%</div>
+        <div style="margin-top:8px;"><span class="kpi-badge warn">vs. 35%+ target</span></div>
+        <div class="kpi-note">76% of Google budget now allocated to ES Search</div>
+      </div>
+    </div>
+
+    <div class="panel fade-up">
+      <div class="panel-title"><span class="dot"></span>Full Performance Summary — August (Partial)</div>
+      <table class="fl-table">
+        <thead><tr><th>Metric</th><th>Result</th><th>Status</th><th>Context</th></tr></thead>
+        <tbody>
+          <tr><td class="bold">Google Ads — Total Investment</td><td class="gold">$14,469.12</td><td class="green">On pace</td><td>96.5% of $15k cap through day 28 of 31</td></tr>
+          <tr><td class="bold">Google Ads — Total Conversions</td><td class="gold">122</td><td class="green">Record volume</td><td>101 calls (82.8%) + 21 form submissions (17.2%)</td></tr>
+          <tr><td class="bold">Google Ads — Blended CPA</td><td class="gold">$118.61</td><td>Mixed by campaign</td><td>Ranges from $17.34 (Branding) to $552.52 (ES Search)</td></tr>
+          <tr><td class="bold">ES Search — Impression Share</td><td class="orange">21.4%</td><td class="orange">Scaling</td><td>76% of budget, 20 conversions, $552.52 CPA</td></tr>
+          <tr><td class="bold">Branding Terms — CPA</td><td class="green">$17.34</td><td class="green">Best in account</td><td>83 conversions from $1,439 spend, 54.3% IS, 22.4% CTR</td></tr>
+          <tr><td class="bold">Leads Logged in Intaker</td><td class="gold">27</td><td class="red">Visibility gap</td><td>Chat-widget captures — no downstream stage reporting shared</td></tr>
+          <tr><td class="bold">Leads Logged in GoHighLevel</td><td class="gold">12</td><td class="red">Visibility gap</td><td>CRM entries — pipeline stage (qualified/signed/lost) not shared</td></tr>
+          <tr><td class="bold">Figma Approval Queue</td><td class="orange">Pending</td><td class="orange">Action needed</td><td>Creative material awaiting Mirelly's sign-off</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- GOOGLE ADS -->
+<section id="google" class="page">
+  <div class="section fade-up">
+    <div class="section-number">02 · Google Ads</div>
+    <h2 class="section-title">122 Conversions — <em>Mostly the Phone Ringing</em></h2>
+    <p class="section-desc">Through August 28, Google Ads delivered 122 tracked conversions on $14,469.12 in spend — the account's strongest conversion volume of the year so far, driven overwhelmingly by call extensions rather than web forms.</p>
+    <div class="section-rule"></div>
+
+    <div class="panel fade-up">
+      <div class="panel-title"><span class="dot"></span>Google Ads Conversion Spotlight — August (Partial)</div>
+      <div class="spotlight">
+        <div class="spotlight-num" style="color:var(--success);">122</div>
+        <div class="spotlight-label">Total tracked conversions · Aug 1–28</div>
+        <div class="spotlight-row">
+          <div><div class="spotlight-mini-val">101</div><div class="spotlight-mini-label">Phone calls (82.8%)</div></div>
+          <div><div class="spotlight-mini-val">21</div><div class="spotlight-mini-label">Form submissions (17.2%)</div></div>
+          <div><div class="spotlight-mini-val">$118.61</div><div class="spotlight-mini-label">Blended CPA</div></div>
+          <div><div class="spotlight-mini-val">7.40%</div><div class="spotlight-mini-label">Account CTR</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col fade-up">
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span>Daily Spend &amp; Conversions — Aug 1–28</div>
+        <div class="chart-wrap"><canvas id="dailyChart" height="240"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span>Budget Distribution by Campaign</div>
+        <div class="chart-wrap"><canvas id="budgetChart" height="240"></canvas></div>
+        <div style="display:flex; gap:12px; margin-top:16px; flex-wrap:wrap;">
+          <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--gray-400);"><div style="width:10px;height:10px;border-radius:2px;background:#BEA95E;flex-shrink:0;"></div>ES Search — $11,050.44</div>
+          <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--gray-400);"><div style="width:10px;height:10px;border-radius:2px;background:#1a2d4a;flex-shrink:0;"></div>Jacksonville — $1,682.75</div>
+          <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--gray-400);"><div style="width:10px;height:10px;border-radius:2px;background:#1FC16B;flex-shrink:0;"></div>Branding — $1,439.18</div>
+          <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--gray-400);"><div style="width:10px;height:10px;border-radius:2px;background:#E53E3E;flex-shrink:0;"></div>FL PI EN — $296.76</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel fade-up">
+      <div class="panel-title"><span class="dot"></span>Google Ads · Campaign Breakdown — Aug 1–28</div>
+      <table class="fl-table">
+        <thead><tr><th>Campaign</th><th>Spend</th><th>Clicks</th><th>CTR</th><th>CPC</th><th>Conv.</th><th>CPA</th><th>Imp. Share</th></tr></thead>
+        <tbody>
+          <tr><td class="bold">[SEARCH][FL][ES] Car Accident / PI</td><td class="gold">$11,050.44</td><td>382</td><td class="green">6.48%</td><td>$28.93</td><td>20</td><td class="orange">$552.52</td><td class="orange">21.4%</td></tr>
+          <tr><td class="bold">[Jacksonville] Car Accident / PI</td><td class="gold">$1,682.75</td><td>86</td><td>3.27%</td><td>$19.57</td><td>16</td><td class="green">$105.17</td><td class="orange">28.8%</td></tr>
+          <tr><td class="bold">[Branding Terms]</td><td class="gold">$1,439.18</td><td>319</td><td class="green">22.43%</td><td>$4.51</td><td class="green">83</td><td class="green">$17.34</td><td class="green">54.3%</td></tr>
+          <tr><td class="bold">[FL] Personal Injury EN</td><td class="gold">$296.76</td><td>35</td><td>3.04%</td><td>$8.48</td><td>3</td><td>$98.92</td><td class="red">10.7%</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:16px; font-size:12px; color:var(--gray-500);">NY Search, NY Demand Gen, PMAX FL, LSA Jacksonville — $0 delivered (paused).</div>
+    </div>
+
+    <div class="two-col fade-up">
+      <div class="panel">
+        <div class="panel-title"><span class="dot"></span>Conversion Type — Calls vs. Forms</div>
+        <div class="chart-wrap"><canvas id="convTypeChart" height="220"></canvas></div>
+      </div>
+      <div class="panel" style="background:var(--navy-700);">
+        <div class="panel-title"><span class="dot"></span>ES Search — Impression Share Trend</div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:10px;">
+          <div style="text-align:center; padding:16px;"><div style="font-family:var(--font-mono); font-size:10px; color:var(--gray-500); text-transform:uppercase; letter-spacing:0.1em;">June IS</div><div style="font-family:var(--font-serif); font-size:38px; font-weight:600; color:var(--error);">21.0%</div></div>
+          <div style="text-align:center; padding:16px;"><div style="font-family:var(--font-mono); font-size:10px; color:var(--gray-500); text-transform:uppercase; letter-spacing:0.1em;">Aug IS</div><div style="font-family:var(--font-serif); font-size:38px; font-weight:600; color:var(--orange);">21.4%</div></div>
+          <div style="text-align:center; padding:16px;"><div style="font-family:var(--font-mono); font-size:10px; color:var(--gray-500); text-transform:uppercase; letter-spacing:0.1em;">Target</div><div style="font-family:var(--font-serif); font-size:38px; font-weight:600; color:var(--success);">35%+</div></div>
+        </div>
+        <div class="callout" style="margin-top:8px;">
+          <div class="callout-label">Strategic Note</div>
+          <div class="callout-text">Budget allocation to ES Search has grown to 76% of the Google account, yet impression share has held nearly flat since June (21.0% → 21.4%). At $28.93 CPC and $552.52 CPA, this is now the single most expensive lever in the account — worth a bid/keyword review before pushing more spend into it.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout success fade-up">
+      <div class="callout-label">Strategic Strength</div>
+      <div class="callout-text">Branding Terms remains the account's most efficient campaign by a wide margin — $17.34 CPA, 54.3% impression share, and 22.43% CTR from just $1,439 in spend. The brand-search flywheel documented in prior reports continues to hold.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADS VISIBILITY -->
+<section id="leads" class="page">
+  <div class="section fade-up">
+    <div class="section-number">03 · Leads &amp; Pipeline Visibility</div>
+    <h2 class="section-title">122 Conversions In — <em>39 Leads We Can See</em></h2>
+    <p class="section-desc">Google Ads confirms 122 conversion events in August. Only 39 lead records are visible to us across both downstream systems — and neither one tells us what happens to a lead after it lands. This is the most important open item in this report.</p>
+    <div class="section-rule"></div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Intaker — Leads Logged</div>
+        <div class="kpi-value gold">27</div>
+        <div class="kpi-note">Site chat-widget captures, Aug (partial)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">GoHighLevel — Leads Logged</div>
+        <div class="kpi-value gold">12</div>
+        <div class="kpi-note">CRM pipeline entries, Aug (partial)</div>
+      </div>
+      <div class="kpi-card alert">
+        <div class="kpi-label">Total Tracked Leads</div>
+        <div class="kpi-value red">39</div>
+        <div style="margin-top:8px;"><span class="kpi-badge down">Overlap unconfirmed</span></div>
+        <div class="kpi-note">Sum of both sources — dedupe not possible without shared access</div>
+      </div>
+    </div>
+
+    <div class="callout danger fade-up">
+      <div class="callout-label">⚠ Critical — Sem Visão de Avanço dos Leads</div>
+      <div class="callout-text">We can see leads enter Intaker and GoHighLevel, but we have no visibility into what happens next — whether a lead was contacted, qualified, converted into a signed case, or lost. Friedland's own documented CRM pipeline (New Potential Client → Qualified Lead → Support Information Gathering → DocuSign Signed) exists inside GoHighLevel, but its stage data isn't shared with the agency. Combined with the fact that 83% of Google's 122 tracked conversions are phone calls — which may not consistently get logged as leads in either system — the real gap between "what Google says converted" and "what actually became a qualified case" is unmeasured. Without stage-level access we cannot report true cost-per-qualified-lead or cost-per-case, only cost-per-ad-conversion.</div>
+    </div>
+
+    <div class="panel fade-up">
+      <div class="panel-title"><span class="dot"></span>Attribution Gap — Signal vs. Visibility</div>
+      <table class="fl-table">
+        <thead><tr><th>Source</th><th>Volume (Aug, partial)</th><th>Pipeline Visibility</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td class="bold">Google Ads — Calls</td><td class="gold">101 conversions</td><td class="red">None</td><td>Call-extension signal only — not confirmed as logged leads</td></tr>
+          <tr><td class="bold">Google Ads — Form Fills</td><td class="gold">21 conversions</td><td class="red">None</td><td>GA4 form_submitted signal — routing to Intaker not confirmed 1:1</td></tr>
+          <tr><td class="bold">Intaker</td><td class="gold">27 leads</td><td class="red">None shared</td><td>Chat-widget conversion point — no stage export to agency</td></tr>
+          <tr><td class="bold">GoHighLevel</td><td class="gold">12 leads</td><td class="red">None shared</td><td>4-stage internal pipeline exists — not exposed to Lisboa &amp; CO</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:16px; font-size:12px; color:var(--gray-500);">Recommended fix: request read access (or a scheduled export) to Intaker's lead log and GoHighLevel's pipeline stages so Google Ads conversions can be reconciled against actual qualified leads and signed cases.</div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROVALS -->
+<section id="approval" class="page">
+  <div class="section fade-up">
+    <div class="section-number">04 · Creative Approvals</div>
+    <h2 class="section-title">Material Awaiting <em>Sign-off</em></h2>
+    <p class="section-desc">Creative material is staged in Figma and ready for review — approval unblocks the next round of campaign and content production.</p>
+    <div class="section-rule"></div>
+
+    <div class="panel fade-up" style="background:var(--navy-700);">
+      <div class="panel-title"><span class="dot"></span>Figma — Pending Approval</div>
+      <div style="font-size:13px; color:var(--gray-400); margin-bottom:20px; line-height:1.6;">The board below contains the material currently awaiting client approval. Please review and confirm so production can move forward without delay.</div>
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:20px 24px; background:rgba(190,169,94,0.06); border:1px solid rgba(190,169,94,0.2); border-radius:8px;">
+        <div>
+          <div class="tag" style="margin-bottom:10px;">Action needed</div>
+          <div style="font-family:var(--font-serif); font-size:20px; color:var(--white); font-weight:600;">FRIEDLAND LAW — Figma Board</div>
+          <div style="font-size:12px; color:var(--gray-500); margin-top:4px;">Node 11279-2 · Material for approval</div>
+        </div>
+        <a href="https://www.figma.com/design/h6YuJbSIKxxUawnjZe7nkw/FRIEDLAND-LAW?node-id=11279-2&p=f&t=VYFp37b24Mj1IepZ-0" target="_blank" style="font-family:var(--font-mono); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--navy-950); background:var(--grad-gold); padding:12px 22px; border-radius:6px; text-decoration:none; font-weight:600; white-space:nowrap;">Open in Figma →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT STEPS -->
+<section id="action" class="page">
+  <div class="section fade-up">
+    <div class="section-number">05 · Next Steps</div>
+    <h2 class="section-title">Before the <em>Full August</em> Close</h2>
+    <p class="section-desc">Three items need movement before month-end: close the leads visibility gap, clear the Figma approval queue, and keep the ES Search reallocation on track.</p>
+    <div class="section-rule"></div>
+
+    <div class="two-col fade-up">
+      <div>
+        <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-400); margin-bottom:16px;">Lead Visibility &amp; Attribution</div>
+        <ul class="action-list">
+          <li class="action-item"><div class="action-icon">⚠</div><div class="action-body"><div class="action-title">Request Pipeline-Stage Access</div><div class="action-desc">Ask Sherian/Mirelly for read access or a scheduled export of Intaker's lead log and GoHighLevel's 4-stage pipeline, so the 122 Google Ads conversions can be reconciled against qualified leads and signed cases.</div></div></li>
+          <li class="action-item"><div class="action-icon">☎</div><div class="action-body"><div class="action-title">Confirm Call Logging Process</div><div class="action-desc">101 of 122 Google conversions are calls — confirm with intake (S Bena/Alex) whether every ad-attributed call is actually being entered into Intaker or GoHighLevel, or if calls are going untracked downstream.</div></div></li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-400); margin-bottom:16px;">Media &amp; Creative</div>
+        <ul class="action-list">
+          <li class="action-item"><div class="action-icon">🎨</div><div class="action-body"><div class="action-title">Clear Figma Approval Queue</div><div class="action-desc">Material at node 11279-2 is ready and waiting — approval unblocks the next production cycle. Link above.</div></div></li>
+          <li class="action-item"><div class="action-icon">📈</div><div class="action-body"><div class="action-title">Review ES Search Efficiency</div><div class="action-desc">76% of Google budget is now in ES Search but impression share is flat since June (21.0% → 21.4%) at a $552.52 CPA. Run a keyword/bid audit before committing further spend to this campaign.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="report-footer fade-up">
+      <div>
+        <div class="footer-brand">Friedland Law</div>
+        <div style="font-size:13px; color:var(--gray-500); margin-top:4px; font-style:italic;">Friedland, Your Friend</div>
+      </div>
+      <div class="footer-meta">
+        Monthly Intelligence Report · Partial — August 2026 (through Aug 28)<br>
+        Produced by Lisboa &amp; CO / V4 Company<br>
+        Full August Report: early September 2026<br>
+        Confidential — Internal Use Only
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+Chart.defaults.color = '#6B7280';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.05)';
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.font.size = 12;
+
+// DAILY SPEND & CONVERSIONS
+new Chart(document.getElementById('dailyChart'), {
+  data: {
+    labels: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28'],
+    datasets: [
+      {
+        type: 'bar',
+        label: 'Spend ($)',
+        data: [122.88,434.16,1099.29,815.18,807.04,466.88,604.32,247.85,126.30,1166.22,967.78,787.48,458.85,353.69,36.84,68.16,1149.86,965.97,763.53,544.76,241.88,211.19,86.31,677.62,474.39,393.46,389.37,7.82],
+        backgroundColor: 'rgba(190,169,94,0.35)',
+        borderRadius: 3,
+        yAxisID: 'y'
+      },
+      {
+        type: 'line',
+        label: 'Conversions',
+        data: [0,4,7,8,2,3,7,2,0,6,10,5,9.7,3.3,1,0,10,6,14,4,2,1,0,6.5,1.5,5,4,0],
+        borderColor: '#1FC16B',
+        backgroundColor: '#1FC16B',
+        borderWidth: 2,
+        pointRadius: 2,
+        tension: 0.35,
+        yAxisID: 'y1'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: true, labels: { color: '#9CA3AF', boxWidth: 10, boxHeight: 10 } },
+      tooltip: {
+        backgroundColor: '#122035', titleColor: '#BEA95E', bodyColor: '#E5E7EB',
+        borderColor: 'rgba(190,169,94,0.2)', borderWidth: 1,
+        callbacks: { label: ctx => ctx.dataset.label === 'Spend ($)' ? ' $' + ctx.raw.toFixed(2) : ' ' + Number(ctx.raw).toFixed(1) + ' conv.' }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#6B7280', font: { size: 9 } } },
+      y: { position: 'left', grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#6B7280', callback: v => '$'+v } },
+      y1: { position: 'right', grid: { display: false }, ticks: { color: '#1FC16B' } }
+    }
+  }
+});
+
+// BUDGET DONUT
+new Chart(document.getElementById('budgetChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['ES Search', 'Jacksonville', 'Branding', 'FL PI EN'],
+    datasets: [{
+      data: [11050.44, 1682.75, 1439.18, 296.76],
+      backgroundColor: ['#BEA95E', '#1a2d4a', '#1FC16B', '#E53E3E'],
+      borderColor: ['#BEA95E', '#243d63', '#1FC16B', '#E53E3E'],
+      borderWidth: 2,
+      hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '70%',
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#122035', titleColor: '#BEA95E', bodyColor: '#E5E7EB',
+        borderColor: 'rgba(190,169,94,0.2)', borderWidth: 1,
+        callbacks: { label: ctx => ' $' + ctx.raw.toLocaleString('en-US', {minimumFractionDigits:2}) }
+      }
+    }
+  },
+  plugins: [{
+    id: 'centerText',
+    beforeDraw(chart) {
+      const { ctx, width, height } = chart;
+      ctx.save();
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#BEA95E';
+      ctx.font = "600 20px 'Cormorant Garamond', serif";
+      ctx.fillText('$14,469', width/2, height/2 - 10);
+      ctx.fillStyle = '#6B7280';
+      ctx.font = "11px 'Inter', sans-serif";
+      ctx.fillText('Total Invested', width/2, height/2 + 14);
+      ctx.restore();
+    }
+  }]
+});
+
+// CONVERSION TYPE DONUT
+new Chart(document.getElementById('convTypeChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Phone Calls', 'Form Submissions'],
+    datasets: [{
+      data: [101, 21],
+      backgroundColor: ['#BEA95E', '#1FC16B'],
+      borderColor: ['#BEA95E', '#1FC16B'],
+      borderWidth: 2,
+      hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '65%',
+    plugins: {
+      legend: { display: true, position: 'bottom', labels: { color: '#9CA3AF', boxWidth: 10, boxHeight: 10 } },
+      tooltip: {
+        backgroundColor: '#122035', titleColor: '#BEA95E', bodyColor: '#E5E7EB',
+        borderColor: 'rgba(190,169,94,0.2)', borderWidth: 1,
+        callbacks: { label: ctx => ' ' + ctx.raw + ' conversions' }
+      }
+    }
+  }
+});
+
+// FADE-UP OBSERVER
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// NAV DOTS
+const sections = document.querySelectorAll('section[id]');
+const dots = document.querySelectorAll('.nav-dot[data-section]');
+const secObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      dots.forEach(d => d.classList.remove('active'));
+      const active = document.querySelector(`.nav-dot[data-section="${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => secObserver.observe(s));
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const id = dot.dataset.section;
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
